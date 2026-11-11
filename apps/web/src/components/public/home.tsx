@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from 'react-router';
 import type { PublicSiteContent, PublicProject, SectionKey } from "@/lib/types";
 import { dateRange } from "@/lib/format";
 import { Arrow, Asterisk } from "./icons";
@@ -42,7 +42,7 @@ export function ProjectSpread({
           0{index + 1} / {project.category}
         </span>
         <h3>
-          <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+          <Link to={`/projects/${project.slug}`}>{project.title}</Link>
         </h3>
       </div>
       <ProjectMedia media={project.cover} title={project.title} index={index} />
@@ -51,7 +51,7 @@ export function ProjectSpread({
           0{index + 1} / {project.category}
         </span>
         <h3>
-          <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+          <Link to={`/projects/${project.slug}`}>{project.title}</Link>
         </h3>
         <p>{project.summary}</p>
         <ul className="technology-list" aria-label="Technologies">
@@ -59,7 +59,7 @@ export function ProjectSpread({
             <li key={x}>{x}</li>
           ))}
         </ul>
-        <Link className="text-link" href={`/projects/${project.slug}`}>
+        <Link className="text-link" to={`/projects/${project.slug}`}>
           View project <Arrow diagonal />
         </Link>
       </div>
@@ -95,7 +95,7 @@ export function PortfolioHome({ content }: { content: PublicSiteContent }) {
           <p className="hero-intro">{p.intro}</p>
           <div className="hero-actions">
             {shown("work") && (
-              <Link href="#work" className="button button-primary">
+              <Link to="#work" className="button button-primary">
                 Explore my work <Arrow diagonal />
               </Link>
             )}

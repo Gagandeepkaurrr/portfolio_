@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from 'react-router';
 import type { ReactNode } from "react";
 import type { PublicSiteContent } from "@/lib/types";
 import { SiteHeader } from "./header";
@@ -40,7 +40,7 @@ export function PublicShell({
       {children}
       <footer className="site-footer">
         <div className="container footer-top">
-          <Link href="/" className="footer-name">
+          <Link to="/" className="footer-name">
             {content.profile.full_name}
             <span>·</span>
           </Link>
@@ -68,7 +68,7 @@ export function PublicShell({
                 LinkedIn ↗
               </ExternalLink>
             )}
-            <Link href="/privacy">Privacy</Link>
+            <Link to="/privacy">Privacy</Link>
           </div>
         </div>
       </footer>

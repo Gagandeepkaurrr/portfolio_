@@ -1,6 +1,26 @@
 # Verification record
 
-Verified locally on 12 November 2026 (India time). The application implements the supplied portfolio brief with a Next.js public site and owner editor, a FastAPI API, PostgreSQL, and private persistent media. This record distinguishes local verification from hosting work.
+## React migration — current application
+
+On 12 November 2026 (India time), the user requested replacing Next.js with React and preparing deployment configuration. The frontend now uses React 19, Vite and React Router 7.18.5 with server rendering. Next.js dependencies, routing, middleware and configuration have been removed. FastAPI, PostgreSQL, the visual design and owner workflows are preserved.
+
+Executed on the migration:
+
+- `make verify`: passed; 32 real PostgreSQL backend tests, 12 frontend unit/component tests, 2 Vercel configuration tests, 5 operational checks, Ruff/mypy, ESLint/TypeScript, contract drift and production build.
+- `make e2e`: all 14 browser tests passed against the Vite development server.
+- `E2E_WEB_MODE=production make e2e`: all 14 browser tests passed against the built React SSR server and its streaming API proxy. This includes authentication, editing across routes, save conflicts, draft previews, publication/restore, contact persistence and media upload/crop.
+- Production web Docker image built and ran as UID10001. Public/project SSR, missing-project404, canonical tags, fresh matching script/CSP nonces, owner noindex, preview-only same-origin framing, sitemap, static assets and API health forwarding passed.
+- `VERCEL=1 pnpm build`: the provider-preset server bundle built successfully, including after the patched AJV dependency override.
+- Production dependency audit: zero advisories after replacing the Vercel adapter's vulnerable transitive AJV version with 8.20.0.
+- Independent review found no actionable migration defect; see [React migration review](reports/react-review.md). Production screenshots were refreshed and visually inspected.
+
+Deployment source now includes `apps/web/vercel.json`, a tested helper for the actual Render API rewrite, and a schema-validated `render.yaml` with automatic PostgreSQL wiring and persistent private media. Generic provider PostgreSQL URLs normalize to the pinned psycopg driver; a regression checks credentials/query preservation. No data/schema migration is required.
+
+The actual Render API URL and final Vercel origin remain operator configuration. The base Vercel file contains no invented hostname; run the documented configuration helper with the real API origin before launching uploads. No public deployment or paid service creation occurred. HTTPS cookie, large-upload, source-IP and remote recovery checks remain in the [hosting guide](vercel-render.md).
+
+## Initial implementation evidence
+
+The following records checks from the initial implementation before the React migration. Persistence/recovery behavior is unchanged. It is retained as historical evidence, not a claim that the current frontend uses Next.js.
 
 ## Final checks
 

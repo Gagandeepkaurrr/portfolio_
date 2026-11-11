@@ -1,4 +1,3 @@
-'use client';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ReactNode, useEffect, useId, useRef } from 'react';
 import { ApiError } from '@/lib/api/admin';

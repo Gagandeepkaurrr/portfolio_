@@ -1,6 +1,28 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { randomUUID } from "node:crypto";
+test("React server rendering retains content, metadata and document security", async ({ request }) => {
+  const response = await request.get('/');
+  expect(response.status()).toBe(200);
+  const html = await response.text();
+  expect(html).toContain('Gagandeep');
+  expect(html).toContain('Weather App');
+  expect(html).toContain('rel="canonical"');
+  expect(html).toContain('application/ld+json');
+  expect(html).not.toContain('/_next/');
+  const headers = response.headers();
+  const nonce = headers['content-security-policy'].match(/'nonce-([^']+)'/)?.[1];
+  expect(nonce).toBeTruthy();
+  expect(html).toContain(`nonce="${nonce}"`);
+  expect(headers['cache-control']).toBe('no-store');
+  expect(headers['x-frame-options']).toBe('DENY');
+  const preview = await request.get('/admin/preview/frame');
+  expect(preview.headers()['x-frame-options']).toBe('SAMEORIGIN');
+  expect(preview.headers()['x-robots-tag']).toContain('noindex');
+  const missing = await request.get('/unwritten-chapter');
+  expect(missing.status()).toBe(404);
+});
+
 test("published portfolio exposes supported projects and hides private phone", async ({
   page,
   request,

@@ -1,5 +1,13 @@
 from fastapi.testclient import TestClient
 from app.main import app
+from app.config import Settings
+
+
+def test_render_database_urls_use_installed_psycopg_driver():
+    tail = 'owner:p%40ss@db.internal:5432/portfolio?sslmode=require'
+    for scheme in ('postgres', 'postgresql', 'postgresql+psycopg'):
+        settings = Settings(database_url=f'{scheme}://{tail}')
+        assert settings.database_url == f'postgresql+psycopg://{tail}'
 
 
 def test_public_site_is_a_published_aggregate():

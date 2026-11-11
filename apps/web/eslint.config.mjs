@@ -1,4 +1,14 @@
-import { defineConfig, globalIgnores } from 'eslint/config';
-import nextVitals from 'eslint-config-next/core-web-vitals';
-import nextTs from 'eslint-config-next/typescript';
-export default defineConfig([...nextVitals,...nextTs,{rules:{'@next/next/no-img-element':'off','react-hooks/set-state-in-effect':'off'}},globalIgnores(['.next*/**','next-env.d.ts'])]);
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import reactHooks from 'eslint-plugin-react-hooks';
+export default tseslint.config(
+  { ignores: ['build/**', '.react-router/**', '.vercel/**', '.next*/**', 'next-env.d.ts'] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: { 'react-hooks/rules-of-hooks': 'error', 'react-hooks/exhaustive-deps': 'warn' },
+  },
+  { files: ['**/*.mjs'], languageOptions: { globals: { process: 'readonly', console: 'readonly' } } },
+);

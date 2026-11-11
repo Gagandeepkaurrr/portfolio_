@@ -1,5 +1,4 @@
-'use client';
-import { usePathname } from 'next/navigation';
+import { useLocation } from 'react-router';
 import { AdminShell } from './AdminShell';
 import { AboutEditor, CommunityEditor, ExperienceEditor, ProfileEditor, ProjectEditor, ProjectsEditor, SettingsEditor } from './ContentEditors';
 import { History } from './History';
@@ -7,9 +6,9 @@ import { Inbox, InboxDetail } from './Inbox';
 import { MediaBrowser } from './MediaManager';
 import { Overview } from './Overview';
 import { Preview, PreviewFrame } from './Preview';
-import Link from 'next/link';
+import { Link } from 'react-router';
 export function AdminRouter() {
-  const pathname = usePathname(); const route = pathname.replace(/^\/admin\/?/, '').split('/').filter(Boolean); let content;
+  const pathname = useLocation().pathname; const route = pathname.replace(/^\/admin\/?/, '').split('/').filter(Boolean); let content;
   if (route[0] === 'preview' && route[1] === 'frame') return <PreviewFrame projectId={route[2] === 'projects' ? route[3] : undefined} />;
   if (!route.length) content = <Overview />;
   else if (route[0] === 'content') {
@@ -23,5 +22,5 @@ export function AdminRouter() {
   else if (route[0] === 'inbox') content = route[1] ? <InboxDetail id={route[1]} /> : <Inbox />;
   else if (route[0] === 'history') content = <History />;
   else if (route[0] === 'preview') content = <Preview projectId={route[1] === 'projects' ? route[2] : undefined} />;
-  return <AdminShell preview={route[0] === 'preview'}>{content ?? <div className="admin-empty"><h1>This studio page doesn’t exist.</h1><Link href="/admin">Return to overview</Link></div>}</AdminShell>;
+  return <AdminShell preview={route[0] === 'preview'}>{content ?? <div className="admin-empty"><h1>This studio page doesn’t exist.</h1><Link to="/admin">Return to overview</Link></div>}</AdminShell>;
 }

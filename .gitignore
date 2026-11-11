@@ -1,5 +1,8 @@
 node_modules/
 .next*/
+build/
+.react-router/
+.vercel/
 .env
 .env.*
 !.env.example
@@ -18,5 +21,5 @@ test-results/
 *.tsbuildinfo
 .DS_Store
 
-# Next regenerates these for the chosen build directory.
+# Ignore generated files from earlier local builds during migration.
 apps/web/next-env.d.ts

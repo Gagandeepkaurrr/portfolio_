@@ -1,5 +1,4 @@
-"use client";
-import Link from "next/link";
+import { Link } from 'react-router';
 import { useEffect, useRef, useState } from "react";
 import type { PublicSiteContent, SectionKey } from "@/lib/types";
 const sections: SectionKey[] = [
@@ -45,7 +44,7 @@ export function SiteHeader({ content }: { content: PublicSiteContent }) {
     <header className="site-header">
       <div className="header-inner">
         <Link
-          href="/"
+          to="/"
           className="brand"
           aria-label={`${content.profile.full_name} — home`}
         >
@@ -75,7 +74,7 @@ export function SiteHeader({ content }: { content: PublicSiteContent }) {
             .filter((s) => content.settings.visible_sections.includes(s))
             .map((s, i) => (
               <Link
-                href={`/#${s}`}
+                to={`/#${s}`}
                 key={s}
                 aria-current={active === s ? "location" : undefined}
                 onClick={() => setOpen(false)}

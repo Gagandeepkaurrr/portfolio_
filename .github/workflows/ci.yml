@@ -41,12 +41,24 @@ jobs:
       - run: make install
       - name: Verify types, tests and production build
         run: make verify
+      - name: Verify React Router server and client output
+        run: |
+          test -f apps/web/build/server/index.js
+          test -d apps/web/build/client/assets
+      - name: Build the production web container
+        run: docker build --file apps/web/Dockerfile --tag portfolio-web:ci .
       - name: Verify operational archive handling
         run: python3 -m unittest discover -s tests/ops -v
       - name: Install browser
         run: npx --yes pnpm@12.18.0 exec playwright install --with-deps chromium
       - name: Real-stack browser acceptance
         run: make e2e
+        env:
+          E2E_WEB_MODE: production
+      - name: Verify Vercel server bundle
+        run: npx --yes pnpm@12.18.0 --filter @portfolio/web build
+        env:
+          VERCEL: '1'
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from 'react-router';
 import type { PublicProject } from "@/lib/types";
 import { ProjectMedia } from "./media";
 import { ExternalLink } from "./shell";
@@ -15,7 +15,7 @@ export function ProjectDetail({
   return (
     <main id="main" className="project-detail">
       <div className="container" id="top">
-        <Link href="/#work" className="breadcrumb">
+        <Link to="/#work" className="breadcrumb">
           ← Back to selected work
         </Link>
         <header className="project-detail-header">
@@ -107,7 +107,7 @@ export function ProjectDetail({
         )}
         <nav className="project-next" aria-label="More to explore">
           {other ? (
-            <Link href={`/projects/${other.slug}`}>
+            <Link to={`/projects/${other.slug}`}>
               <span className="eyebrow">THE NEXT CHAPTER</span>
               <span className="next-title">
                 {other.title}
@@ -115,11 +115,11 @@ export function ProjectDetail({
               </span>
             </Link>
           ) : (
-            <Link href="/#work">
+            <Link to="/#work">
               More selected work <Arrow />
             </Link>
           )}
-          <Link href="/#contact" className="text-link">
+          <Link to="/#contact" className="text-link">
             Start a conversation <Arrow diagonal />
           </Link>
         </nav>

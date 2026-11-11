@@ -17,27 +17,28 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "rootDirs": [
+      ".",
+      "./.react-router/types"
+    ]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    ".next-e2e/types/**/*.ts",
-    ".next-e2e/dev/types/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "*.ts",
+    ".react-router/types/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build"
   ]
 }

@@ -1,10 +1,10 @@
 # Deployment and operational ownership
 
-The repository is prepared for one host with Docker: nginx → Next.js/FastAPI → PostgreSQL plus a persistent private media volume. Only nginx exposes application ports. `compose.production.yaml` builds unprivileged application images with pinned dependencies; a one-shot migration/seed service runs after database readiness, before the API and web start. Development Compose is a separate stack and volume.
+The repository is prepared for one host with Docker: nginx → React Router/FastAPI → PostgreSQL plus a persistent private media volume. The React frontend uses Vite and React Router framework mode with server rendering. Only nginx exposes application ports. `compose.production.yaml` builds unprivileged application images with pinned dependencies; a one-shot migration/seed service runs after database readiness, before the API and web start. Development Compose is a separate stack and volume.
 
 ## Local production-like check
 
-Stop `make dev`, then run `make up`. The default root `.env` has `APP_ENV=development` and `PUBLIC_ORIGIN=http://localhost:3000`, so local HTTP is explicitly development-cookie mode even though Next.js is a production build. This is useful for container testing; it is not secure production configuration. Open localhost3000. Create the separate containerized owner interactively:
+Stop `make dev`, then run `make up`. The default root `.env` has `APP_ENV=development` and `PUBLIC_ORIGIN=http://localhost:3000`, so local HTTP is explicitly development-cookie mode even though the frontend is a production build. This is useful for container testing; it is not secure production configuration. Open localhost3000. Create the separate containerized owner interactively:
 
 ```sh
 docker compose -f compose.production.yaml exec api python -m app.cli admin-create
@@ -22,7 +22,9 @@ docker compose -f compose.production.yaml exec api python -m app.cli admin-creat
 6. Run `make verify` and the integrated browser checks, build immutable images, and record the Git revision. Produce a coordinated protected backup before updating an existing instance.
 7. Run the migration once, start the new services, and check `/api/v1/health/live`, `/api/v1/health/ready`, public pages, owner sign-in and a real contact submission. Inspect correlation-ID logs. SMTP is optional and does not determine readiness.
 
-Next's server-only `API_INTERNAL_URL` is runtime configuration. Browser API calls remain relative `/api/v1`. All credentials and storage paths are server runtime values. Fonts, CSS and JavaScript are static build output; no secret is a `NEXT_PUBLIC_` value. Docker images contain no `.env`, uploads or backups.
+`API_INTERNAL_URL` is server-only runtime configuration used by React Router loaders and the standalone API proxy. Browser API calls remain relative `/api/v1`; nginx sends them directly to FastAPI in Compose. All credentials and storage paths are server runtime values. Fonts, CSS and JavaScript are static build output; no secret belongs in a `VITE_` variable or client module. Docker images contain no `.env`, uploads or backups.
+
+The web image builds with `react-router build` and starts `react-router-serve build/server/index.js` as an unprivileged user with `HOST=0.0.0.0` and `PORT=3000`. It contains the `build/client` assets, `build/server` bundle, and locked production dependencies. The same start command works outside Docker when the API URL, public origin and application environment are supplied at runtime. Use the React Router server for this build so public HTML, metadata, redirects and status codes are evaluated for each request.
 
 ## Maintenance
 

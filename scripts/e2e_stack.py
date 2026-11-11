@@ -82,22 +82,25 @@ def main():
                 'ABUSE_HMAC_SECRET':secrets.token_hex(32),
                 'PUBLIC_ORIGIN':f'http://localhost:{web_port}',
                 'API_INTERNAL_URL':f'http://127.0.0.1:{api_port}/api/v1',
-                'NEXT_BUILD_DIR':'.next-e2e',
                 'E2E_ORIGIN':f'http://localhost:{web_port}',
                 'E2E_OWNER_EMAIL':'e2e-owner@example.com',
                 'E2E_OWNER_PASSWORD':secrets.token_urlsafe(32),
                 'SMTP_HOST':'',
                 'CONTACT_NOTIFY_TO':'',
-                'NEXT_TELEMETRY_DISABLED':'1',
             })
             def api(*parts):
                 subprocess.run(['uv','run','--frozen',*parts],cwd=ROOT/'apps/api',env=env,check=True)
             api('alembic','upgrade','head')
             api('python','-m','app.cli','seed')
             api('python','-c',"import os; from app.cli import create_owner; from app.db import session_factory; db=session_factory()(); create_owner(db,os.environ['E2E_OWNER_EMAIL'],os.environ['E2E_OWNER_PASSWORD']); db.close()")
+            production_web = env.get('E2E_WEB_MODE') == 'production'
+            if production_web:
+                subprocess.run([*PNPM,'--filter','@portfolio/web','build'],cwd=ROOT,env=env,check=True)
+                env.update({'PORT':str(web_port),'HOST':'127.0.0.1'})
+            web_command = [*PNPM,'--filter','@portfolio/web','start'] if production_web else [*PNPM,'--filter','@portfolio/web','exec','react-router','dev','--host','127.0.0.1','--port',str(web_port)]
             commands = [
                 (['uv','run','--frozen','uvicorn','app.main:app','--host','127.0.0.1','--port',str(api_port)],ROOT/'apps/api','api.log'),
-                ([*PNPM,'--filter','@portfolio/web','exec','next','dev','--port',str(web_port)],ROOT,'web.log'),
+                (web_command,ROOT,'web.log'),
             ]
             for command, cwd, filename in commands:
                 output = (log_dir/filename).open('w')

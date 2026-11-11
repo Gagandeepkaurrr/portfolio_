@@ -1,15 +1,16 @@
-import Link from "next/link";
-import { getSite } from "@/lib/api/public";
+import { Link } from 'react-router';
+import { getSite } from "@/lib/api/public.server";
+import { useLoaderData } from "react-router";
 import { PublicShell } from "@/components/public";
-export const dynamic = "force-dynamic";
-export const metadata = { title: "Privacy — Gagandeep Kaur" };
-export default async function Privacy() {
-  const { content } = await getSite();
+export const loader = () => getSite();
+export const meta = () => [{ title: "Privacy — Gagandeep Kaur" }];
+export default function Privacy() {
+  const { content } = useLoaderData<typeof loader>();
   return (
     <PublicShell content={content}>
       <main id="main" className="container prose-page">
         <div id="top" />
-        <Link className="breadcrumb" href="/">
+        <Link className="breadcrumb" to="/">
           ← Back to the portfolio
         </Link>
         <span className="eyebrow">A NOTE ON YOUR INFORMATION</span>

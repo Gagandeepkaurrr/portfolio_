@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import type { PublicMediaRef } from "@/lib/types";
 import { Asterisk } from "./icons";

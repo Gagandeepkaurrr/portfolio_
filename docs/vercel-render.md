@@ -1,6 +1,6 @@
 # Deploy the web app on Vercel and the API/database on Render
 
-This guide keeps the application's PostgreSQL data model: **Vercel runs Next.js; Render runs FastAPI, PostgreSQL and a private persistent media disk.**
+This guide keeps the application's PostgreSQL data model: **Vercel runs the React Router server-rendered frontend; Render runs FastAPI, PostgreSQL and a private persistent media disk.** Vite builds the React application, and the Vercel React Router preset packages its server runtime.
 
 These are instructions for an owner-authorized deployment. No hosting service, paid disk or database has been purchased or deployed by the repository build task. Repository: [Gagandeepkaurrr/portfolio_](https://github.com/Gagandeepkaurrr/portfolio_).
 
@@ -8,20 +8,15 @@ These are instructions for an owner-authorized deployment. No hosting service, p
 
 Use one stable HTTPS origin, for example the production Vercel project domain or an owned custom domain. In the steps below, replace `https://YOUR-PORTFOLIO.vercel.app` with that exact origin (no path/trailing slash), and replace `https://YOUR-API.onrender.com` with the Render API URL.
 
-Browsers must continue calling `/api/v1/...` on the frontend origin. Next's existing external rewrite forwards those requests to Render. Server components use the same Render URL through `API_INTERNAL_URL`. The owner cookie is therefore set through the frontend origin, preserving the same-origin session/CSRF design. Do not change frontend fetches to call Render directly and do not add wildcard credentialed CORS.
+Browsers must continue calling `/api/v1/...` on the frontend origin. Configure the external rewrite below to forward those requests directly to Render. React Router server loaders use the same Render URL through the server-only `API_INTERNAL_URL`. The owner cookie is therefore set through the frontend origin, preserving the same-origin session/CSRF design. Do not change frontend fetches to call Render directly and do not add wildcard credentialed CORS.
 
 ## 2. Create PostgreSQL on Render
 
+The repository includes `render.yaml` for the API, PostgreSQL 17 and private media disk. It selects paid compute/storage, a single API instance, Singapore for both resources, and manual deployments. It wires the database's internal connection string into the API and generates distinct HMAC secrets; supply the final HTTPS `PUBLIC_ORIGIN` when prompted. Review those choices and resource names before importing a Blueprint; importing applies infrastructure and can incur charges. The configuration has not been applied by this task. The manual steps below remain available if you prefer configuring resources in the Dashboard. [Render Blueprint reference](https://render.com/docs/blueprint-spec)
+
 In Render, choose **New → Postgres**. Choose PostgreSQL 17 (the locally verified major), an appropriate database plan, and the same region you will use for the API. Name it `gagandeep-portfolio-db`. After it is available, copy its **Internal Database URL** privately. Render recommends internal connections for services in the same account/region. [Render PostgreSQL connection guide](https://render.com/docs/postgresql-creating-connecting)
 
-Convert only the URL's driver scheme for this application:
-
-```text
-postgresql://USER:PASSWORD@HOST/DATABASE
-→ postgresql+psycopg://USER:PASSWORD@HOST/DATABASE
-```
-
-Keep the rest of the generated URL and its credentials unchanged. Put it only in the Render API's secret `DATABASE_URL`. Do not paste it into Git, Vercel frontend variables, screenshots, or chat. Local development remains on its separate local PostgreSQL database.
+The API accepts Render's native PostgreSQL URL and selects its installed psycopg driver automatically; an explicit `postgresql+psycopg://` URL also works. Keep the generated URL and its credentials unchanged and put it only in the Render API's secret `DATABASE_URL`. The Blueprint supplies this value automatically through `fromDatabase`. Do not paste it into Git, Vercel frontend variables, screenshots, or chat. Local development remains on its separate local PostgreSQL database.
 
 ## 3. Create the Render API service and disk
 
@@ -35,7 +30,7 @@ Choose **New → Web Service**, connect the GitHub repository, and configure:
 | uv version environment variable | `UV_VERSION=0.13.6` |
 | Build command | `uv sync --frozen --no-dev` |
 | Pre-deploy command | `uv run --frozen --no-dev alembic upgrade head` |
-| Start command | `uv run --frozen --no-dev uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2 --no-proxy-headers` |
+| Start command | `uv run --frozen --no-dev python -m app.cli seed && uv run --frozen --no-dev uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 2 --no-proxy-headers` |
 | Health check path | `/api/v1/health/ready` |
 | Instances | One while using the local-disk storage backend |
 
@@ -51,7 +46,7 @@ Set these API environment variables before deploying:
 | --- | --- |
 | `APP_ENV` | `production` |
 | `PUBLIC_ORIGIN` | `https://YOUR-PORTFOLIO.vercel.app` |
-| `DATABASE_URL` | Converted private Render PostgreSQL internal URL |
+| `DATABASE_URL` | Private Render PostgreSQL internal URL; wired automatically by the Blueprint |
 | `MEDIA_BACKEND` | `local` |
 | `MEDIA_ROOT` | `/var/data/media` |
 | `CSRF_SECRET` | Independently generated random secret, at least 32 characters |
@@ -72,18 +67,26 @@ uv run --frozen --no-dev python -m app.cli seed
 uv run --frozen --no-dev python -m app.cli admin-create
 ```
 
-The first command initializes one verified draft and release only when empty. The second privately prompts for your email/passphrase; there is no default password. The API may report an unpublished state before seed. To recover access later, run `uv run --frozen --no-dev python -m app.cli admin-reset` in the service shell.
+Startup initializes one verified draft and release only when empty. The first command above is a safe manual repeat. The second privately prompts for your email/passphrase; there is no default password. The API may report an unpublished state before seed. To recover access later, run `uv run --frozen --no-dev python -m app.cli admin-reset` in the service shell.
 
 ## 4. Import the frontend into Vercel
 
-In Vercel, create a project from the same GitHub repository. Set **Root Directory** to `apps/web`, select **Next.js**, and enable inclusion of source files outside that directory so the workspace lockfile can be used. Vercel's monorepo workflow assigns a project root to the selected app. [Vercel monorepo guide](https://vercel.com/docs/monorepos)
+The repository includes `apps/web/vercel.json` with the React Router framework and workspace install/build commands. Once the real Render API hostname is known, configure its external API rewrite from the repository root:
+
+```sh
+node apps/web/scripts/configure-vercel.mjs https://YOUR-API.onrender.com
+```
+
+Replace the example argument with the actual HTTPS API origin, then commit the resulting `apps/web/vercel.json`. The API hostname is public and contains no credential. The helper configures `/api/v1/:path*` forwarding so API requests, including uploads, bypass the frontend function. The base configuration can use the standalone proxy through `API_INTERNAL_URL`, but the external rewrite is required before launching the media upload workflow because Vercel Functions have payload limits. A real API hostname is still a deployment prerequisite. [Vercel external rewrites](https://vercel.com/docs/routing/rewrites)
+
+In Vercel, create a project from the same GitHub repository. Set **Root Directory** to `apps/web`, select the **React Router** framework preset, and enable inclusion of source files outside that directory so the workspace lockfile can be used. The committed `react-router.config.ts` enables `@vercel/react-router` when Vercel supplies `VERCEL=1`; ordinary local builds retain the Node server output. Keep server rendering enabled. [React Router on Vercel](https://vercel.com/docs/frameworks/frontend/react-router), [Vercel monorepo guide](https://vercel.com/docs/monorepos)
 
 | Setting | Value |
 | --- | --- |
 | Node version | `26.x` |
 | Install command | `cd ../.. && npx --yes pnpm@12.18.0 install --frozen-lockfile` |
 | Build command | `cd ../.. && npx --yes pnpm@12.18.0 --filter @portfolio/web build` |
-| Output directory | Leave the Next.js default `.next` |
+| Output directory | Leave the React Router framework default; remove any old override |
 
 Select Node 26.x in project settings; this matches the locally verified Node 26 toolchain. [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions)
 
@@ -95,7 +98,9 @@ PUBLIC_ORIGIN=https://YOUR-PORTFOLIO.vercel.app
 APP_ENV=production
 ```
 
-Do not set database passwords, CSRF secrets, storage credentials or session secrets on Vercel. Do not prefix the internal API setting with `NEXT_PUBLIC_`. `API_INTERNAL_URL` is also used to compile the external rewrite, so redeploy Vercel after changing it. `APP_ENV=production` allows public indexing; admin/preview remain noindex.
+Do not set database passwords, CSRF secrets, storage credentials or session secrets on Vercel. Do not prefix the internal API setting with `VITE_` or expose it through client code. `API_INTERNAL_URL` configures server loaders at runtime; the external rewrite has its own literal destination in `vercel.json`. If the API origin changes, update both settings and redeploy. `APP_ENV=production` allows public indexing; admin/preview remain noindex.
+
+Local `react-router build` output is `build/client` plus `build/server/index.js`. Vercel uses the provider preset to package the server-rendered application; leave its output selection to the framework integration. A static `build/client` deployment would omit loaders, live metadata, redirects and real project 404 responses.
 
 Deploy the Vercel production project, then confirm the deployed hostname exactly matches Render's `PUBLIC_ORIGIN`. If it changed, update Render, redeploy/restart the API, update the site URL in owner Settings and publish. Exact Origin validation intentionally rejects arbitrary Vercel preview URLs. Use a separate staging API/database/disk for independent preview editing, or keep previews read-only; never add a wildcard allowed origin.
 
@@ -103,7 +108,7 @@ Deploy the Vercel production project, then confirm the deployed hostname exactly
 
 From the Vercel origin, verify:
 
-1. `/api/v1/health/ready` returns healthy, the home page and both project routes render, and unknown projects return404.
+1. `/api/v1/health/ready` returns healthy, the home page and both project routes render without JavaScript, and unknown projects return HTTP 404. Confirm API traffic uses the external rewrite, rather than the standalone frontend proxy.
 2. `/admin/login` accepts your owner account; the HTTPS session cookie is `__Host-portfolio_session` with Secure, HttpOnly, SameSite=Lax and Path=/.
 3. Save a draft edit, inspect Preview, and check the public page remains unchanged until Publish. Confirm a new release in History.
 4. Upload the real résumé and portrait in the admin Media/Profile screens. These requests must pass through the same frontend origin. Save and publish. Verify the actual PDF and image still work after restarting the Render API.
@@ -124,4 +129,4 @@ Never use `*`, `0.0.0.0/0`, or trust the internet's first forwarded-header value
 
 Run `uv run --frozen --no-dev python -m app.cli cleanup` in the API shell for a dry run; add `--apply` after review. The command must run on the disk-owning API instance. A separate Render cron service cannot access this disk. Keep PostgreSQL recovery/export settings and protected media backups; the repository's Docker backup scripts target the local/Compose topology and are not presented as a turnkey Render backup integration. An operator must arrange a coordinated writer-stopped database/media backup and rehearse recovery before relying on the hosted deployment for irreplaceable data.
 
-The local storage adapter intentionally limits horizontal scaling. Do not add API instances sharing an assumed filesystem or advertise S3 support: an S3 adapter would need implementation and verification first. Keep `/api/v1` as a direct external rewrite, without adding a Next API route/function that reads uploaded files. Vercel Functions have a 4.5 MB request/response limit, which does not by itself establish the limit of the external rewrite route. Smoke-test actual near-limit 8 MiB images and 10 MiB PDFs through the deployed Vercel→Render path; no blanket upload-capacity guarantee is made here. [Vercel function payload limits](https://vercel.com/docs/errors/function_payload_too_large) Platform ingress limits, runtime proxy headers and cookie behavior must also be checked on the deployed services. The local verification record is not a claim that these hosted checks have run.
+The local storage adapter intentionally limits horizontal scaling. Do not add API instances sharing an assumed filesystem or advertise S3 support: an S3 adapter would need implementation and verification first. Keep `/api/v1` as a direct external rewrite; the standalone React Router API proxy is for the Node runtime and must not carry hosted uploads through a Vercel Function. Vercel Functions have a 4.5 MB request/response limit, which does not by itself establish the limit of the external rewrite route. Smoke-test actual near-limit 8 MiB images and 10 MiB PDFs through the deployed Vercel→Render path; no blanket upload-capacity guarantee is made here. [Vercel function payload limits](https://vercel.com/docs/errors/function_payload_too_large) Platform ingress limits, runtime proxy headers and cookie behavior must also be checked on the deployed services. The local verification record is not a claim that these hosted checks have run.

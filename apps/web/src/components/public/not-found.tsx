@@ -1,8 +1,8 @@
-import Link from "next/link";
-export default function NotFound() {
+import { Link } from 'react-router';
+export function NotFoundView() {
   return (
     <main id="main" className="standalone-state">
-      <Link href="/" className="brand-mark">
+      <Link to="/" className="brand-mark">
         GK<span>·</span>
       </Link>
       <span className="eyebrow">404 / AN UNWRITTEN PAGE</span>
@@ -13,10 +13,10 @@ export default function NotFound() {
       </h1>
       <p>The page may have moved, or this story is still being written.</p>
       <div className="hero-actions">
-        <Link href="/" className="button button-primary">
+        <Link to="/" className="button button-primary">
           Back to home ↗
         </Link>
-        <Link href="/#work" className="text-link">
+        <Link to="/#work" className="text-link">
           Explore the work →
         </Link>
       </div>

@@ -1,6 +1,6 @@
 # Gagandeep Kaur — a personal journal of building
 
-A responsive editorial portfolio and private owner publishing application, built with Next.js, FastAPI and PostgreSQL. The supplied résumé facts seed the initial live release; edits live in a separate draft until the owner publishes. Portrait and project media have deliberate placeholders until real files are supplied.
+A responsive editorial portfolio and private owner publishing application, built with React 19, Vite, React Router, FastAPI and PostgreSQL. React Router framework mode server-renders the public pages and supports navigation in the owner editor. The supplied résumé facts seed the initial live release; edits live in a separate draft until the owner publishes. Portrait and project media have deliberate placeholders until real files are supplied.
 
 ## Local setup
 
@@ -60,14 +60,18 @@ Open `/admin` after signing in. Edit Profile, Projects, Experience, Community, A
 
 The production-like stack has its own database and private media volumes; local development data is not silently copied into it. `make up` is a local container deployment, not publication on the internet. For true production, configure HTTPS and production secrets as described in [deployment](docs/deployment.md). For the requested split hosting, follow [Vercel frontend + Render API/PostgreSQL](docs/vercel-render.md).
 
+Deployment configuration is included in `apps/web/vercel.json` and `render.yaml`. After creating the Render API, run `node apps/web/scripts/configure-vercel.mjs https://YOUR-API.onrender.com` with its real HTTPS origin and commit the generated rewrite. Supply the environment values in the hosting guide before deployment. The Render Blueprint defines paid resources and has not been applied.
+
 ## Structure and verification
 
-- `apps/web`: public server-rendered pages, owner forms, and shared presentation components.
+- `apps/web`: React Router routes and server loaders, owner forms, and shared React presentation components; Vite handles development and bundling.
 - `apps/api`: strict contracts, transactional services, sessions, uploads, contact inbox, CLI and migrations.
 - `infra/nginx`: one-origin proxy and TLS example.
 - `scripts`: reproducible management and coordinated backup/restore.
 - `docs/project-brief.txt`: original project specification.
 
-The isolated browser runner uses ports 8002/3002 by default; override `E2E_API_PORT`/`E2E_WEB_PORT` if occupied. It creates only a random `portfolio_e2e_*` database and temporary media, passes credentials in child process memory, and removes its test data even after failed tests. Development data is unchanged. Browser binaries require `npx --yes pnpm@12.18.0 exec playwright install chromium` once.
+The isolated browser runner uses ports 8002/3002 by default; override `E2E_API_PORT`/`E2E_WEB_PORT` if occupied. It creates only a random `portfolio_e2e_*` database and temporary media, passes credentials in child process memory, and removes its test data even after failed tests. Development data is unchanged. `E2E_WEB_MODE=production make e2e` builds and tests the production SSR server and its streaming API proxy; CI uses this mode. Browser binaries require `npx --yes pnpm@12.18.0 exec playwright install chromium` once.
+
+The frontend's `build` script runs `react-router build`, producing `apps/web/build/client` assets and `apps/web/build/server/index.js`. To run that production build against a separately running API, use `API_INTERNAL_URL=http://127.0.0.1:8100/api/v1 HOST=0.0.0.0 PORT=3000 npx --yes pnpm@12.18.0 --filter @portfolio/web start`. Set `PUBLIC_ORIGIN` and `APP_ENV` for the intended environment. Browser requests stay on `/api/v1`: Vite proxies them in development, the Node server streams them in standalone mode, and nginx routes them in Compose.
 
 See [architecture](docs/architecture.md), [API conventions](docs/api.md), [backup and recovery](docs/backup-restore.md), [content provenance](docs/content-provenance.md), and the final [verification record](docs/verification.md). Reports distinguish executed checks from remaining deployment work. Missing optional inputs are a real portrait, project screenshots and project-specific repository links. No SMTP credentials are required to receive and store contact messages.

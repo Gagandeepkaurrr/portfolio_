@@ -32,6 +32,15 @@ class Settings(BaseSettings):
     contact_notify_to: str | None = None
     log_level: str = 'INFO'
 
+    @field_validator('database_url')
+    @classmethod
+    def postgres_driver(cls, value: str) -> str:
+        # Managed providers return generic PostgreSQL URLs; use our pinned psycopg3 driver.
+        for prefix in ('postgres://', 'postgresql://'):
+            if value.startswith(prefix):
+                return 'postgresql+psycopg://' + value[len(prefix):]
+        return value
+
     @field_validator('csrf_secret', 'abuse_hmac_secret')
     @classmethod
     def strong_secret(cls, value: str) -> str:

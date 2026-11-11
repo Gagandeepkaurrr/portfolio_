@@ -1,9 +1,11 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# Frontend conventions
 
-## This is NOT the Next.js you know
+This is a React + Vite application using React Router framework mode with SSR.
+Route declarations live in src/routes.ts; src/root.tsx owns the document.
+Keep server-only configuration and fetches in .server.ts modules. FastAPI
+remains the sole authority for authentication, drafts, publication and media.
+Browser API requests use /api/v1. Preserve the shared AdminProvider across
+owner routes so navigation cannot discard unsaved edits.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+Run lint, typecheck, unit tests and build through the root pnpm scripts.
+The isolated make e2e command exercises real PostgreSQL/API/browser workflows.

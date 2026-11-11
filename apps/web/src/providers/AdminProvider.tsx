@@ -1,7 +1,6 @@
-'use client';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useAppNavigation } from '@/lib/navigation';
 import type { SiteContent } from '@/lib/types';
 import { adminApi, ApiError, jsonBody } from '@/lib/api/admin';
 import { changedSections } from '@/components/admin/draft-state';
@@ -23,7 +22,7 @@ interface AdminContextValue {
 const AdminContext = createContext<AdminContextValue | null>(null);
 function OwnerState({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useAppNavigation();
   const sessionQuery = useQuery({ queryKey: ['owner-session'], queryFn: () => adminApi<OwnerSession>('/admin/auth/session'), retry: false, staleTime: Infinity });
   const session = sessionQuery.data ?? null;
   const draftQuery = useQuery({ queryKey: ['owner-draft'], queryFn: () => adminApi<DraftEnvelope>('/admin/draft'), enabled: !!session, retry: false, staleTime: Infinity });

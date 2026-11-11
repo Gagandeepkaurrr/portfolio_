@@ -1,6 +1,5 @@
-"use client";
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from 'react-router';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, useReducedMotion } from "motion/react";
@@ -198,7 +197,7 @@ export function ContactForm({ email }: { email: string }) {
       <div className="form-bottom">
         <p>
           Your details are used to receive and respond to your inquiry.{" "}
-          <Link href="/privacy">Privacy notice</Link>
+          <Link to="/privacy">Privacy notice</Link>
         </p>
         <motion.button
           whileTap={reduced ? undefined : { scale: 0.98 }}

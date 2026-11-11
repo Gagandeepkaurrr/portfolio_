@@ -5,6 +5,9 @@
 node_modules
 **/node_modules
 **/.next*
+**/build
+**/.react-router
+**/.vercel
 **/.venv
 **/__pycache__
 **/.pytest_cache
