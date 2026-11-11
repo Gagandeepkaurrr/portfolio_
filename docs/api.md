@@ -1,0 +1,13 @@
+# API and contracts
+
+FastAPI is the sole authority for authentication, validation, publishing, uploads and contact persistence. Every business route is under `/api/v1`; browsers use that relative prefix and Next server components use `API_INTERNAL_URL`. Local OpenAPI documentation is available from FastAPI while development is enabled. Run `make contracts` to export OpenAPI and regenerate the checked TypeScript contract. `pnpm contracts:check` verifies schema/type drift and compile-time compatibility; it runs in `make verify` and CI. For a standalone JSON export, use `uv run python -m app.cli export-openapi PATH` from `apps/api`. Regenerate contracts whenever transport changes.
+
+JSON uses `snake_case`. Errors use `{error:{code,message,details},request_id}` and every API response has a correlation header. Expected status distinctions include unauthenticated 401, CSRF/origin 403, unknown/private 404, conflict 409, stale draft 412, size 413, unsupported media 415, validation 422, missing draft precondition 428, throttling 429 with Retry-After, and dependency 503. Do not convert failed commits to success responses.
+
+Owner authentication uses an opaque HttpOnly cookie and an in-memory session-bound CSRF value. Unsafe browser requests require the exact allowed Origin; owner mutations also send `X-CSRF-Token`. Tokens never belong in URLs or localStorage. An explicit development cookie is used only in HTTP development; production requires HTTPS and the Secure `__Host-` cookie.
+
+Draft reads return an actual revision and strong ETag. Save sends the complete canonical document with `If-Match: "draft-N"`. Publish sends the reviewed draft revision, expected live release ID (nullable before initialization) and a UUID idempotency key. Retry an ambiguous publish with the same key and payload, then refetch live state. Historical replay does not republish an old release. Restore copies a private snapshot into a new draft only.
+
+Contact accepts name, email, optional subject, message and optional empty website honeypot. Send one UUID Idempotency-Key per intended normalized payload and keep it through ambiguous retries. A first committed receipt returns 201; an identical replay returns 200 and the same receipt. A changed payload with the same key conflicts. Receipt means stored, not emailed.
+
+Public `/site` returns only one live public projection. Project aliases resolve to current canonical slugs for retained visible items. Public media and résumé authorization checks the current release on every GET and HEAD; draft/history references alone cannot make bytes public. No-store applies to content, preview, API-authorized media and content-dependent redirects. Unknown or private media use the same 404 response.

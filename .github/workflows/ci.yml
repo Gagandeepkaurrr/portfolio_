@@ -1,0 +1,58 @@
+name: Verify portfolio
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:17.11-alpine
+        env:
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: ci-isolated-ephemeral-password
+          POSTGRES_DB: portfolio
+        ports:
+          - 55433:5432
+        options: >-
+          --health-cmd "pg_isready -U portfolio -d portfolio"
+          --health-interval 3s --health-timeout 3s --health-retries 30
+    env:
+      APP_ENV: test
+      PUBLIC_ORIGIN: http://localhost:3000
+      API_INTERNAL_URL: http://127.0.0.1:8000/api/v1
+      DATABASE_URL: postgresql+psycopg://portfolio:ci-isolated-ephemeral-password@127.0.0.1:55433/portfolio
+      TEST_DATABASE_URL: postgresql+psycopg://portfolio:ci-isolated-ephemeral-password@127.0.0.1:55433/portfolio_test_backend
+      CSRF_SECRET: isolated-ci-csrf-key-never-use-in-production
+      ABUSE_HMAC_SECRET: isolated-ci-abuse-key-never-use-in-production
+      MEDIA_ROOT: /tmp/portfolio-ci-media
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26.13.0
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: 0.13.6
+          python-version: '3.12'
+      - run: make install
+      - name: Verify types, tests and production build
+        run: make verify
+      - name: Verify operational archive handling
+        run: python3 -m unittest discover -s tests/ops -v
+      - name: Install browser
+        run: npx --yes pnpm@12.18.0 exec playwright install --with-deps chromium
+      - name: Real-stack browser acceptance
+        run: make e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failure-evidence
+          path: |
+            playwright-report/
+            test-results/
+            .data/e2e-logs/
+          retention-days: 7

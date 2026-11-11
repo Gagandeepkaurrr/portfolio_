@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "profile": {
+    "full_name": "Gagandeep Kaur",
+    "role_label": "Computer Science Student & Frontend Developer",
+    "hero_eyebrow": "Frontend development · Computer science · Community",
+    "intro": "I'm Gagandeep, a computer science student who enjoys building responsive web experiences and bringing people together through technology.",
+    "biography": "I'm pursuing a B.Tech in Computer Science Engineering at Guru Tegh Bahadur Institute of Technology, Delhi. My work includes frontend development with React and Tailwind, personal web projects, and organizing technical events with IEEE GTBIT.",
+    "institution_context": "B.Tech CSE · Guru Tegh Bahadur Institute of Technology",
+    "email": "gagandeepp1401@gmail.com",
+    "phone_display": "+91-8178351176",
+    "phone_e164": "+918178351176",
+    "github_url": "https://github.com/Gagandeepkaurrr",
+    "linkedin_url": "https://www.linkedin.com/in/gagandeep-kaur-5bba75298",
+    "portrait": null,
+    "resume_asset_id": null
+  },
+  "projects": [
+    {
+      "id": "3a20566b-723f-5c84-ba9c-c88a10e1121d",
+      "position": 0,
+      "is_visible": true,
+      "slug": "weather-app",
+      "title": "Weather App",
+      "category": "Personal project",
+      "summary": "A simple way to look up the weather in a city.",
+      "overview": "A weather application built with HTML, CSS, and JavaScript. Visitors enter a city name to view current temperature, humidity, and wind speed.",
+      "feature_bullets": [
+        "A city-name input for requesting weather information.",
+        "A clear display of temperature, humidity, and wind speed.",
+        "Dynamic interface updates and a simple visual layout."
+      ],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "narrative_blocks": [],
+      "live_url": "https://gagandeepkaurrr.github.io/weatherApp/",
+      "repository_url": null,
+      "cover": null,
+      "gallery": [],
+      "seo_title": null,
+      "seo_description": null
+    },
+    {
+      "id": "008b9a3e-64c8-5e77-aad1-96acbed210a3",
+      "position": 1,
+      "is_visible": true,
+      "slug": "previous-portfolio",
+      "title": "Previous Personal Portfolio",
+      "category": "Previous portfolio",
+      "summary": "An earlier home for my skills, experience, and web projects.",
+      "overview": "A responsive portfolio built with HTML, CSS, JavaScript, and React. It presents skills and experience through an organized layout, interactive elements, and smooth navigation.",
+      "feature_bullets": [
+        "A personal website for presenting skills and experience.",
+        "Responsive page layouts.",
+        "Interactive elements and smooth navigation."
+      ],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React"
+      ],
+      "narrative_blocks": [],
+      "live_url": "https://portfolio-gagandeep.vercel.app/",
+      "repository_url": null,
+      "cover": null,
+      "gallery": [],
+      "seo_title": null,
+      "seo_description": null
+    }
+  ],
+  "experience": [
+    {
+      "id": "201c89d0-fdbc-5630-8f43-a7eff43bd270",
+      "position": 0,
+      "is_visible": true,
+      "organization": "WEB2ATTRACT",
+      "role": "Frontend Intern",
+      "start": {
+        "value": "2025-08",
+        "precision": "month"
+      },
+      "end": {
+        "value": "2025-10",
+        "precision": "month"
+      },
+      "is_current": false,
+      "description": "Improved website functionality and interface design through feature enhancements, design refinement, and responsive layouts using React and Tailwind.",
+      "bullets": [],
+      "technologies": [
+        "React",
+        "Tailwind CSS"
+      ]
+    }
+  ],
+  "leadership": [
+    {
+      "id": "e8dced30-1fd0-547f-892f-7e1c195db793",
+      "position": 0,
+      "is_visible": true,
+      "organization": "IEEE GTBIT Student Branch",
+      "role": "Web Development Coordinator",
+      "start": {
+        "value": "2024-02",
+        "precision": "month"
+      },
+      "end": {
+        "value": "2025-02",
+        "precision": "month"
+      },
+      "is_current": false,
+      "description": "Learned and applied frontend technologies through projects.",
+      "bullets": [
+        "Managed an IEEE Day event with 500+ registrations."
+      ],
+      "metrics": [
+        {
+          "value": "500+",
+          "label": "registrations",
+          "context": "IEEE Day event during the Web Development Coordinator role"
+        }
+      ]
+    },
+    {
+      "id": "e5d49e85-4355-58e3-aa85-c1c331a0bcfb",
+      "position": 1,
+      "is_visible": true,
+      "organization": "IEEE GTBIT Student Branch",
+      "role": "CS Chapter General Secretary",
+      "start": {
+        "value": "2025-02",
+        "precision": "month"
+      },
+      "end": null,
+      "is_current": true,
+      "description": "Coordinated technical events and workshops, engaged students, and managed cross-team operations.",
+      "bullets": [
+        "Managed cross-team operations."
+      ],
+      "metrics": [
+        {
+          "value": "10+",
+          "label": "events and workshops",
+          "context": "CS Chapter General Secretary role"
+        },
+        {
+          "value": "200+",
+          "label": "students engaged",
+          "context": "CS Chapter General Secretary role"
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "0e2a3295-61c7-5e7f-8a87-1822da5e592f",
+      "position": 0,
+      "is_visible": true,
+      "qualification": "B.Tech, Computer Science Engineering",
+      "institution": "Guru Tegh Bahadur Institute of Technology, Delhi",
+      "start_year": 2023,
+      "completion_year": null,
+      "is_current": true,
+      "result_label": "CGPA",
+      "result_value": "9.24",
+      "result_note": "Current as listed in the CV"
+    },
+    {
+      "id": "d625570a-ca4a-522d-b9b7-deb7ba2b4c5a",
+      "position": 1,
+      "is_visible": true,
+      "qualification": "Senior Secondary",
+      "institution": "SS Mota Singh Model School",
+      "start_year": null,
+      "completion_year": 2023,
+      "is_current": false,
+      "result_label": "Percentage",
+      "result_value": "84%",
+      "result_note": null
+    },
+    {
+      "id": "14891344-a24e-53ed-8822-a8986caaf22d",
+      "position": 2,
+      "is_visible": true,
+      "qualification": "Secondary",
+      "institution": "SS Mota Singh Model School",
+      "start_year": null,
+      "completion_year": 2021,
+      "is_current": false,
+      "result_label": "Percentage",
+      "result_value": "90.16%",
+      "result_note": null
+    }
+  ],
+  "skill_groups": [
+    {
+      "id": "168dc739-85b4-5e04-a96a-392337a6a30f",
+      "position": 0,
+      "is_visible": true,
+      "group_name": "Frontend",
+      "items": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "id": "cafec64e-ef14-5860-9486-bc8958935b9d",
+      "position": 1,
+      "is_visible": true,
+      "group_name": "Programming",
+      "items": [
+        "C++"
+      ]
+    },
+    {
+      "id": "d1859c1d-8d59-5cfb-a5a1-f570ce8540c9",
+      "position": 2,
+      "is_visible": true,
+      "group_name": "Computer science",
+      "items": [
+        "Operating Systems",
+        "Database Management Systems",
+        "Computer Networks"
+      ]
+    },
+    {
+      "id": "c0bb8cd1-33cd-5704-b1af-3dbfb92ca374",
+      "position": 3,
+      "is_visible": true,
+      "group_name": "Data structures and techniques",
+      "items": [
+        "Arrays",
+        "Linked Lists",
+        "Stacks",
+        "Queues",
+        "Binary Trees",
+        "Sliding Window",
+        "Two Pointers"
+      ]
+    }
+  ],
+  "recognition": [
+    {
+      "id": "c8a0e65a-d9c5-522d-882f-00c04878c506",
+      "position": 0,
+      "is_visible": true,
+      "title": "Finalist in DTU’s Vihaan 07 hackathon",
+      "description": "",
+      "event_name": "Vihaan 07, DTU",
+      "event_year": null,
+      "result_label": "Finalist",
+      "metric": null,
+      "link": null
+    },
+    {
+      "id": "7c706513-286b-5480-b781-18961becf2e9",
+      "position": 1,
+      "is_visible": true,
+      "title": "First place in the Tech Track Relay",
+      "description": "",
+      "event_name": "IEEE Day 2024, DTU",
+      "event_year": 2024,
+      "result_label": "First place",
+      "metric": null,
+      "link": null
+    },
+    {
+      "id": "ce4bdcf7-aa42-5e9d-897b-64eb5e0277c4",
+      "position": 2,
+      "is_visible": true,
+      "title": "Lead organizer of IEEE Day 2025",
+      "description": "Led the organization of IEEE Day 2025 at GTBIT, with 1,500+ registrations.",
+      "event_name": "IEEE Day 2025, GTBIT",
+      "event_year": 2025,
+      "result_label": "Lead organizer",
+      "metric": {
+        "value": "1,500+",
+        "label": "registrations",
+        "context": "IEEE Day 2025 at GTBIT"
+      },
+      "link": null
+    }
+  ],
+  "certifications": [
+    {
+      "id": "c5c815c5-b33e-50c6-a3db-1297205a48d7",
+      "position": 0,
+      "is_visible": true,
+      "title": "The Elements of AI",
+      "issuers": [
+        "MinnaLearn",
+        "University of Helsinki"
+      ],
+      "issued_on": null,
+      "credential_id": null,
+      "credential_url": "https://drive.google.com/file/d/1gPcYKhlgPoHJBZCDlYk_vWNzSubaAEC8/view?usp=sharing"
+    }
+  ],
+  "settings": {
+    "site_url": "http://localhost:3000",
+    "default_seo_title": "Gagandeep Kaur — Frontend Developer & CS Student",
+    "default_seo_description": "The personal portfolio of Gagandeep Kaur: frontend development, computer science learning, and community leadership.",
+    "section_labels": {
+      "work": "Work",
+      "experience": "Experience",
+      "community": "Community",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "section_intros": {
+      "work": {
+        "heading": "A few things I've built.",
+        "description": "Web projects focused on clear interfaces, responsive layouts, and useful interactions."
+      },
+      "experience": {
+        "heading": "Building for real interfaces.",
+        "description": ""
+      },
+      "community": {
+        "heading": "Creating space for people to learn.",
+        "description": "Alongside development, I've helped organize technical events and coordinate activities with IEEE GTBIT."
+      },
+      "about": {
+        "heading": "Learning through code and collaboration.",
+        "description": ""
+      },
+      "contact": {
+        "heading": "Let's start a conversation.",
+        "description": "Have a project, opportunity, or question? Send me a message."
+      }
+    },
+    "visible_sections": [
+      "work",
+      "experience",
+      "community",
+      "about",
+      "contact"
+    ],
+    "featured_project_ids": [
+      "3a20566b-723f-5c84-ba9c-c88a10e1121d",
+      "008b9a3e-64c8-5e77-aad1-96acbed210a3"
+    ],
+    "featured_recognition_id": "ce4bdcf7-aa42-5e9d-897b-64eb5e0277c4",
+    "show_phone": false,
+    "show_resume": false,
+    "availability_enabled": false,
+    "availability_text": null
+  }
+}

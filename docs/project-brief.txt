@@ -1,0 +1,1371 @@
+GAGANDEEP KAUR
+COMPLETE FULL-STACK PORTFOLIO IMPLEMENTATION PROMPT FOR CODEX
+Edition: 2 — Detailed build specification
+Prepared: 11 November 2026
+Stack: React / Next.js + FastAPI + PostgreSQL
+Source of personal facts: supplied Gagandeep_kaur_resume.pdf
+
+HOW TO USE THIS FILE
+
+Give Codex this entire file and the original CV. If available, also attach a real portrait and project screenshots. Ask Codex to implement the specification in the target repository. This file is the complete build brief, not an introduction to another missing document. Missing optional assets must not prevent a working application; use the explicit placeholder behavior below.
+
+The project described here has not already been implemented or security-certified. Build, run, inspect, and test it before describing the resulting application as ready for deployment. The requirements below define the intended production standard and the evidence needed to assess it.
+
+CONTENTS
+
+01. Mission, scope, priorities, and execution contract
+02. Verified identity and CV content
+03. Editorial copy and project narratives
+04. Technology choices and system boundaries
+05. Public routes, information architecture, and user journeys
+06. Design system and responsive composition
+07. Public page and component specifications
+08. Project detail templates and media placeholders
+09. Photo, résumé, and project media experience
+10. Owner administration and editorial workflows
+11. Canonical content types and validation
+12. PostgreSQL schema and data integrity
+13. API contracts and error behavior
+14. Drafts, atomic publishing, history, and slug redirects
+15. Authentication, sessions, and authorization
+16. Media processing, storage, and access control
+17. Contact delivery, inbox, idempotency, and abuse controls
+18. Frontend state, rendering, and failure handling
+19. Repository structure and module responsibilities
+20. Configuration, local development, and reproducible commands
+21. Accessibility, motion, SEO, and performance
+22. Verification strategy and acceptance scenarios
+23. Deployment, monitoring, backups, and operational ownership
+24. Milestones and implementation sequence
+25. Completion checklist and final engineering handoff
+26. Reference documentation and content provenance
+
+======================================================================
+01. MISSION, SCOPE, PRIORITIES, AND EXECUTION CONTRACT
+======================================================================
+
+You are the senior product designer and full-stack engineer responsible for creating a complete personal portfolio for Gagandeep Kaur. Design and implement a cohesive public experience and a real owner-managed publishing application. The result must look considered, feel fast, work on phones, and remain maintainable after its first launch.
+
+The creative direction is "A Personal Journal of Building": an editorial portfolio combining a substantial portrait, expressive serif headlines, clear project stories, and an understated chapter system. The website should communicate frontend development, computer science learning, and community leadership through the owner's actual work. Give it its own visual identity. Do not reproduce Dennis Snellenberg's layout or Bruno Simon's interactive driving experience.
+
+Required public product:
+- A polished home page with portrait, introduction, selected work, internship, IEEE leadership, about, education, skills, achievements, certification, and contact.
+- Two complete project detail routes populated from the CV.
+- Functional links to the supplied project demos and professional profiles.
+- A real résumé download when the supplied PDF is available.
+- A contact form that persists submissions in PostgreSQL.
+- A useful 404 page, operational error states, sitemap, metadata, and accessible navigation.
+
+Required private product:
+- One owner account with secure login and logout.
+- A protected content editor for every public content section.
+- Draft saving, authenticated preview, atomic publication, and release history.
+- Image and résumé uploads, portrait focal-point adjustment, alt text, and project galleries.
+- A contact inbox with read, unread, archive, restore, and delete operations.
+- Configuration for public social links, SEO defaults, section visibility, and résumé visibility.
+
+Implementation priorities, in order:
+1. Accurate owner content and functioning end-to-end features.
+2. Strong editorial layout, responsive behavior, and accessibility.
+3. Correct authorization, publishing, contact persistence, and media handling.
+4. Maintainable code, reproducible setup, and meaningful verification.
+5. Optional visual refinements that do not compromise the preceding requirements.
+
+Inspect the repository and its instructions before editing. Reuse sound existing work. Preserve unrelated changes. Create the application if the repository is empty. Resolve ordinary engineering decisions autonomously and document meaningful assumptions. Report a blocker only when it actually prevents the remaining authorized work; continue independent features while external credentials or assets are missing.
+
+Do not stop after generating a plan, a beautiful static mockup, empty route files, a frontend backed by localStorage, or screenshots without functional code. Do not mark an endpoint complete while it returns hard-coded success. Do not place TODO comments in place of required behavior.
+
+Scope deliberately excludes public visitor accounts, payments, a blog CMS, ecommerce, multi-tenant teams, mandatory AI chat, email campaigns, complex analytics, a mobile app, and a 3D engine. These features were not requested. A portfolio does not need an AI model merely to be contemporary. Keep the architecture proportionate to a single owner and a modest amount of content.
+
+Prepare deployment configuration and instructions. Actual public deployment, paid-service activation, sending messages to other people, or changing an existing production environment requires the owner's authorization. Local development, tests, documentation, and a reviewable deployment plan are part of this task.
+
+======================================================================
+02. VERIFIED IDENTITY AND CV CONTENT
+======================================================================
+
+Treat the following as authoritative seed content. The supplied CV remains the source of truth for personal facts. Do not combine this portfolio with Sukhe/Sukhmeet's identity, employment, education, projects, preferences, or achievements.
+
+IDENTITY
+Name: Gagandeep Kaur
+Positioning: Computer Science Student & Frontend Developer
+Email: gagandeepp1401@gmail.com
+Phone display: +91-8178351176
+Phone URI: tel:+918178351176
+GitHub: https://github.com/Gagandeepkaurrr
+LinkedIn: https://www.linkedin.com/in/gagandeep-kaur-5bba75298
+Academic institution: Guru Tegh Bahadur Institute of Technology, Delhi
+
+"Delhi" identifies the institution in the CV. Do not infer her home address, current residence, citizenship, age, date of birth, pronouns beyond supplied usage, job availability, or willingness to relocate. An availability badge stays disabled until the owner supplies its wording.
+
+EDUCATION
+Entry 1:
+- Qualification: B.Tech, Computer Science Engineering.
+- Institution: Guru Tegh Bahadur Institute of Technology, Delhi.
+- Start year: 2023.
+- End: Present, as supplied in the CV.
+- Result: CGPA 9.24, current as listed in the CV.
+- Do not invent an expected graduation year or call her a graduate.
+
+Entry 2:
+- Qualification: Senior Secondary.
+- Institution: SS Mota Singh Model School.
+- Completion year: 2023.
+- Result: 84%.
+
+Entry 3:
+- Qualification: Secondary.
+- Institution: SS Mota Singh Model School.
+- Completion year: 2021.
+- Result: 90.16%.
+
+EMPLOYMENT
+Organization: WEB2ATTRACT
+Role: Frontend Intern
+Start: August 2025
+End: October 2025
+Supported description:
+"Improved website functionality and interface design through feature enhancements, design refinement, and responsive layouts using React and Tailwind."
+
+Do not invent client names, internship duration beyond the date range, job conversion, production traffic, conversion rates, performance improvements, or revenue outcomes.
+
+IEEE LEADERSHIP
+Entry 1:
+- Organization: IEEE GTBIT Student Branch.
+- Role: Web Development Coordinator.
+- Dates: February 2024–February 2025.
+- Learned and applied frontend technologies through projects.
+- Managed an IEEE Day event with 500+ registrations.
+
+Entry 2:
+- Organization: IEEE GTBIT Student Branch.
+- Role: CS Chapter General Secretary.
+- Dates: February 2025–Present, as recorded in the CV.
+- Coordinated 10+ technical events and workshops.
+- Engaged with 200+ students.
+- Managed cross-team operations.
+
+PROJECT 1
+Name: Weather App
+Slug: weather-app
+Technologies: HTML, CSS, JavaScript
+Live URL: https://gagandeepkaurrr.github.io/weatherApp/
+Project-specific repository URL: null, not supplied.
+Description: A city-search weather application showing current temperature, humidity, and wind speed through a clean interface with dynamic updates.
+
+Do not attribute a weather API vendor, forecasts, geolocation, caching, authentication, user counts, backend, or measured performance to this project without new evidence supplied by the owner.
+
+PROJECT 2
+Name for this portfolio: Previous Personal Portfolio
+Original CV project name: Portfolio
+Slug: previous-portfolio
+Technologies: HTML, CSS, JavaScript, React
+Live URL: https://portfolio-gagandeep.vercel.app/
+Project-specific repository URL: null, not supplied.
+Description: A responsive personal website showcasing skills and experience through interactive elements, smooth navigation, and an organized layout.
+
+Make clear this is the earlier portfolio project. Do not claim that this new application's FastAPI backend, PostgreSQL database, admin editor, or contact inbox were features of that earlier project.
+
+SKILLS
+Frontend: HTML, CSS, JavaScript, React, Tailwind CSS.
+Programming: C++.
+Computer science: Operating Systems, Database Management Systems, Computer Networks.
+Data structures and techniques: Arrays, Linked Lists, Stacks, Queues, Binary Trees, Sliding Window, Two Pointers.
+
+React and Tailwind are supported by the project and internship descriptions. Group skills as text. Do not invent proficiency percentages, years of experience, or proficiency ratings. The technologies used to build this new site are not automatically new claims about Gagandeep's background.
+
+CERTIFICATION
+Title: The Elements of AI
+Issuers: MinnaLearn and the University of Helsinki
+Certificate URL: https://drive.google.com/file/d/1gPcYKhlgPoHJBZCDlYk_vWNzSubaAEC8/view?usp=sharing
+Issue date: null, not supplied.
+Certificate identifier: null, not supplied.
+
+Present this as a completed course/certification. It does not establish professional AI employment or a university degree.
+
+RECOGNITION
+- Finalist in DTU's Vihaan 07 hackathon.
+- First place in the Tech Track Relay at IEEE Day 2024, DTU.
+- Lead organizer of IEEE Day 2025 at GTBIT, with 1,500+ registrations.
+
+Keep each figure attached to its actual event or role. Registrations are not confirmed attendance. Do not add the 500+ and 1,500+ figures together. Do not turn the 200+ students into customers. "Finalist" must not become "winner."
+
+MISSING ASSETS AND INFORMATION
+- No portrait appears in the supplied CV.
+- No project screenshots were supplied.
+- No project-specific repository URLs were supplied.
+- No project dates, team sizes, individual responsibility breakdowns, measured results, or detailed engineering reflections were supplied.
+- No testimonials, salary expectations, availability status, home address, or personal interests were supplied.
+
+Represent missing optional values as null, hide unsupported public claims, and provide clear editable admin placeholders. The intentional GK portrait placeholder and labeled project artwork are permitted visual fallback content, not invented evidence.
+
+For dates, store the precision actually provided. An education year is not January 1 of that year. A month range is not an invented pair of exact days. Preserve source precision in both UI and structured data.
+
+======================================================================
+03. EDITORIAL COPY AND PROJECT NARRATIVES
+======================================================================
+
+Use the following initial writing. The owner can edit it through the CMS. These are restrained summaries of the CV, not additional credentials.
+
+HEADER
+Brand: Gagandeep Kaur
+Compact brand on small screens: GK, with an accessible full-name label.
+Navigation: Work, Experience, Community, About, Contact.
+
+HERO
+Eyebrow: Frontend development · Computer science · Community
+Heading: Gagandeep Kaur
+Role: Computer Science Student & Frontend Developer
+Introduction:
+"I'm Gagandeep, a computer science student who enjoys building responsive web experiences and bringing people together through technology."
+Primary action: Explore my work
+Secondary action: View résumé
+Context line: B.Tech CSE · Guru Tegh Bahadur Institute of Technology
+Portrait placeholder: GK / Portrait coming soon
+
+WORK INTRODUCTION
+Chapter: 01 / Selected work
+Heading: A few things I've built.
+Description: "Web projects focused on clear interfaces, responsive layouts, and useful interactions."
+
+WEATHER APP CASE STUDY
+Eyebrow: Personal project
+Heading: Weather App
+Summary: "A simple way to look up the weather in a city."
+Overview:
+"A weather application built with HTML, CSS, and JavaScript. Visitors enter a city name to view current temperature, humidity, and wind speed."
+What I built:
+- A city-name input for requesting weather information.
+- A clear display of temperature, humidity, and wind speed.
+- Dynamic interface updates and a simple visual layout.
+Tools: HTML, CSS, JavaScript.
+Primary external action: Visit live project.
+Repository action: Hidden until a project-specific URL is supplied.
+Reflection/challenges: Empty initially; admin helper text requests the owner's actual decisions and lessons. Do not generate fictional problem-solving anecdotes.
+
+PREVIOUS PORTFOLIO CASE STUDY
+Eyebrow: Previous portfolio
+Heading: Previous Personal Portfolio
+Summary: "An earlier home for my skills, experience, and web projects."
+Overview:
+"A responsive portfolio built with HTML, CSS, JavaScript, and React. It presents skills and experience through an organized layout, interactive elements, and smooth navigation."
+What I built:
+- A personal website for presenting skills and experience.
+- Responsive page layouts.
+- Interactive elements and smooth navigation.
+Tools: HTML, CSS, JavaScript, React.
+Primary action: Visit previous portfolio.
+Repository action: Hidden until an actual URL is supplied.
+Do not describe specific implementation techniques that are absent from the source.
+
+EXPERIENCE
+Chapter: 02 / Experience
+Heading: Building for real interfaces.
+Entry: Frontend Intern / WEB2ATTRACT / Aug 2025–Oct 2025.
+Description: Use the verified internship description from section 02.
+
+COMMUNITY
+Chapter: 03 / Community
+Heading: Creating space for people to learn.
+Introduction: "Alongside development, I've helped organize technical events and coordinate activities with IEEE GTBIT."
+Show the two roles, their own dates, and their own achievements. Place the IEEE Day 2025 lead-organizer recognition in a clearly labeled event callout. Do not imply a third employment role.
+
+ABOUT
+Chapter: 04 / About
+Heading: Learning through code and collaboration.
+Body:
+"I'm pursuing a B.Tech in Computer Science Engineering at Guru Tegh Bahadur Institute of Technology, Delhi. My work includes frontend development with React and Tailwind, personal web projects, and organizing technical events with IEEE GTBIT."
+Subsections: Education, Tools and foundations, Recognition, Certification.
+
+CONTACT
+Chapter: 05 / Contact
+Heading: Let's start a conversation.
+Body: "Have a project, opportunity, or question? Send me a message."
+Form labels: Name, Email, Subject, Message.
+Submit label: Send message.
+Pending label: Sending…
+Success: "Your message has been received. Thank you for getting in touch."
+Failure: "Your message couldn't be saved. Please try again, or email me directly."
+Rate limit: "You've sent several messages recently. Please try again later or use the email link."
+Never promise a response within a fixed time or state that an email was delivered when only database storage succeeded.
+
+FOOTER
+Display name, email link, GitHub, LinkedIn, and current copyright year.
+An understated line may read: "Built with care, continuously learning."
+Do not include unverified availability, a fake visitor counter, fabricated clients, or invented testimonials.
+
+======================================================================
+04. TECHNOLOGY CHOICES AND SYSTEM BOUNDARIES
+======================================================================
+
+Use React through Next.js App Router with TypeScript strict mode. Next.js provides public server rendering, routes, metadata, image presentation, and the admin UI. Keep most public components server-rendered; use client components only where browser interaction is required.
+
+Required frontend dependencies:
+- Tailwind CSS for the design token system and responsive styling.
+- Motion for a small number of restrained transitions.
+- Accessible headless primitives or shadcn-style components for dialogs, menus, tabs, and administrative controls, restyled to this design.
+- React Hook Form with Zod for client-side form feedback.
+- TanStack Query for authenticated remote state and mutations.
+- A maintained image-crop/focal-point interaction library if it meaningfully reduces implementation complexity.
+- Vitest, React Testing Library, Playwright, and an accessibility test integration.
+
+Required backend dependencies:
+- FastAPI and Pydantic for request/response validation and OpenAPI.
+- SQLAlchemy 2.x with the psycopg driver and PostgreSQL.
+- Alembic for versioned schema migrations.
+- A maintained Argon2id password hashing library.
+- Pillow or an equivalent maintained raster decoder for verified image processing.
+- A PDF parser to validate résumé uploads.
+- pytest and HTTPX for service and API verification.
+
+Use a synchronous SQLAlchemy service layer and ordinary synchronous FastAPI handlers for database-heavy operations unless the existing repository already has a consistent async design. Do not mix sync database calls into async handlers on the event loop. Use one database session per request; end transactions explicitly. Run image decoding in the appropriate worker/thread execution path, with strict resource limits.
+
+Choose supported stable package versions at implementation time, verify their compatibility using official documentation, and pin the resolved versions. Commit the JavaScript and Python lockfiles. Select a supported Node LTS, supported Python release, and supported PostgreSQL major. Do not use floating "latest" container tags or copy old version numbers without checking them.
+
+Use one public origin. A reverse proxy serves:
+- /api/v1/* to FastAPI, preserving the path.
+- All other application routes to Next.js.
+
+Next server components call FastAPI with a private API_INTERNAL_URL. Browsers use relative /api/v1 paths. Configure an equivalent development proxy so cookie and CSRF behavior is exercised through the same origin. Never put database URLs, session secrets, storage credentials, SMTP passwords, or internal service URLs into NEXT_PUBLIC variables.
+
+FastAPI is the sole authority for passwords, sessions, content validation, publishing, uploads, public media authorization, and contact persistence. Next.js must not create a competing authentication database or write directly to PostgreSQL.
+
+Start with explicit no-store behavior for public content responses and public HTML. At this portfolio's scale, immediate consistency is more valuable than a complicated cache layer. Static fonts, CSS, JavaScript, and decorative assets can use fingerprinted immutable caching. A future public-content cache requires a tested invalidation and media-removal policy.
+
+PostgreSQL is the source of truth. Browser state is for interaction and unsaved edits, never the authoritative CMS store. No required feature may depend on mock JSON responses after implementation.
+
+======================================================================
+05. PUBLIC ROUTES, INFORMATION ARCHITECTURE, AND USER JOURNEYS
+======================================================================
+
+PUBLIC ROUTES
+/                         Published home page.
+/#work                    Selected work anchor.
+/#experience              Internship anchor.
+/#community               IEEE leadership anchor.
+/#about                   About and qualifications anchor.
+/#contact                 Contact anchor.
+/projects/weather-app     Weather App case study.
+/projects/previous-portfolio  Earlier portfolio case study.
+/privacy                  Plain-language contact data notice.
+/robots.txt               Environment-aware crawler rules.
+/sitemap.xml              Only current public routes.
+Any unmatched route       Designed 404 page with home/work links.
+
+The project route is dynamic by slug; the initial slugs above are seed values, not separately hard-coded project components. Additional published projects created in the admin editor must use the same template automatically.
+
+ADMIN ROUTES
+/admin/login
+/admin                    Overview and publishing status.
+/admin/content/profile
+/admin/content/projects
+/admin/content/projects/[id]
+/admin/content/experience
+/admin/content/community
+/admin/content/about
+/admin/content/settings
+/admin/media
+/admin/inbox
+/admin/inbox/[id]
+/admin/history
+/admin/preview            Home preview for the authenticated owner.
+/admin/preview/projects/[id]  Project preview by stable ID.
+
+All admin routes require authorization apart from the login screen. A Next navigation guard improves UX; FastAPI authorization protects the actual data. Admin, preview, and login responses are no-store and noindex.
+
+VISITOR JOURNEY: RECRUITER
+1. Understand Gagandeep's name, current positioning, and education at first glance.
+2. Open a project, see what it does and the verified tools used, and reach its live demo.
+3. Review internship and leadership experience.
+4. View the résumé or contact her through the working form or email link.
+
+VISITOR JOURNEY: MOBILE VISITOR
+1. See the portrait or intentional placeholder without layout shift.
+2. Read a short introduction and a visible primary action.
+3. Navigate by touch with no hover-only controls.
+4. Complete the contact form without the keyboard hiding errors or clearing inputs.
+
+OWNER JOURNEY: UPDATE PORTRAIT
+1. Log in and open Profile or Media.
+2. Upload a real image, inspect a crop, adjust the focal point and alt text.
+3. Save the draft and preview desktop and mobile compositions.
+4. Publish explicitly; only then does the new portrait become the public source.
+
+OWNER JOURNEY: NEW PROJECT
+1. Create an item with a stable ID, title, slug, summary, tools, and visibility.
+2. Add verified narrative, links, and optional media.
+3. Save a draft and preview its actual template.
+4. Publish the complete site release. The new route and sitemap entry appear together.
+
+OWNER JOURNEY: CONTACT MESSAGE
+1. The visitor submits a validated message.
+2. The backend commits it and returns a receipt.
+3. The owner sees it in the admin inbox and marks it read.
+4. The owner may use a mailto link to reply through their own mail client. Opening the link is not an automatic reply or a claimed sent message.
+
+======================================================================
+06. DESIGN SYSTEM AND RESPONSIVE COMPOSITION
+======================================================================
+
+DESIGN CHARACTER
+Use an editorial composition with a generous portrait, quiet borders, contrasting typography, substantial whitespace, and intentional asymmetry. The public site must feel like a person's curated body of work. The admin can use denser, conventional controls because it serves an editing task.
+
+COLOR TOKENS
+--color-canvas: #F5F1E8; warm ivory page background.
+--color-ink: #242A28; default text.
+--color-brand: #153E3B; deep teal headings, buttons, community section.
+--color-accent: #A65F42; muted copper marks, selected borders, illustration details.
+--color-surface: #E4EBE4; soft sage secondary surfaces.
+--color-white: #FFFFFF; selected input and modal surfaces.
+--color-border: a tested neutral with sufficient visible boundary contrast.
+--color-danger / --color-success: define accessible variants with text and icon reinforcement.
+
+Verify text and control contrast. Do not assume every palette pairing passes. Copper is primarily an accent; if a smaller copper text style fails contrast on ivory, use deep teal or a darker copper token for that style. Never communicate state by color alone.
+
+TYPOGRAPHY
+Headings: Instrument Serif, licensed and served through optimized/local font loading.
+Body, labels, buttons, navigation: Manrope, with a system sans-serif fallback.
+Use only the font weights actually required and font-display behavior that keeps content visible.
+
+Target desktop sizes:
+- Hero name: fluid 64–80 px; line-height approximately 0.98–1.08.
+- Main section heading: 42–56 px; compact but readable leading.
+- Project title: 32–44 px.
+- Body introduction: 18–20 px; line-height 1.6.
+- Standard body: 16–18 px; line-height 1.6–1.75.
+- Supporting metadata: 13–14 px; line-height at least 1.4.
+- Form text: at least 16 px on phones to avoid disruptive browser zoom.
+
+At small widths, the hero name is about 44–56 px and section headings about 32–40 px, adjusted with clamp(). Never shrink body content to fit a desktop composition. Keep long reading paragraphs near 60–72 characters per line.
+
+LAYOUT TOKENS
+Maximum primary content width: 1200 px.
+Desktop page gutters: 56–72 px, capped by the maximum width.
+Tablet gutters: 32 px.
+Phone gutters: 20 px, dropping to 16 px only at the narrowest supported width.
+Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64, 80, 112, 144 px.
+Desktop section rhythm: approximately 112–144 px vertical separation.
+Phone section rhythm: approximately 64–80 px.
+Default card radius: 12–18 px, used sparingly.
+Portrait frame radius: 4–8 px or a restrained editorial arch if it preserves the photograph.
+Buttons: at least 44 px tall, clear padding, modest rounded corners rather than universal pills.
+
+BREAKPOINT BEHAVIOR
+320–639 px: single-column layout; portrait first; collapsed navigation; stacked actions when needed; full-width project media; one-column forms; no horizontal overflow.
+640–1023 px: generous single column or carefully balanced two-column supporting sections; portrait/text can remain stacked until their minimum widths fit.
+1024–1439 px: two-column hero, alternating project spreads, timeline and supporting content grids.
+1440 px and above: constrain the layout to the content maximum; preserve intentional margins rather than stretching text across the monitor.
+
+The hero can use approximately 5/12 of the grid for portrait and 7/12 for text. Its image width should normally cap around 440 px. It should not force the entire introduction below the fold on an ordinary laptop. Use content-driven height instead of a mandatory 100vh panel.
+
+MOTION LANGUAGE
+Use 160–240 ms feedback transitions and 300–450 ms section reveals with small distances. A reveal may fade and translate 12–20 px; it must not leave server-rendered content invisible if JavaScript fails. Apply enhancement classes only after the motion layer initializes. Avoid continuous background animation, cursor replacement, scroll hijacking, mandatory loaders, or parallax on the portrait.
+
+For prefers-reduced-motion, remove translations, parallax, and scroll interpolation. Keep focus, selection, hover, and validation changes immediate and understandable. A mobile menu can appear without movement.
+
+SIGNATURE DETAIL
+A small numbered chapter system links Work, Experience, Community, About, and Contact. The active marker updates from IntersectionObserver, with ordinary anchor links as the functional foundation. On desktop it can sit as a restrained side index or header underline. On phones use the primary navigation and a small current-chapter indicator only when it does not crowd the viewport. Do not duplicate navigation so much that screen-reader users hear each link three times.
+
+======================================================================
+07. PUBLIC PAGE AND COMPONENT SPECIFICATIONS
+======================================================================
+
+HEADER AND NAVIGATION
+Use an approximately 72 px desktop / 64 px mobile header with opaque ivory background, a restrained lower rule, and a visible brand link. A sticky header must not cover focused controls or anchor headings. Add scroll-margin-top to section targets. Include a skip-to-main-content link that becomes visible on focus.
+
+The mobile menu button has an accessible name, aria-expanded, and a relationship to the controlled panel. Opening the menu moves focus appropriately; Escape and selecting a link close it; closing restores focus to the opener when appropriate. Trap focus only if the chosen component is a modal sheet. Normal navigation links remain actual links.
+
+HERO
+Use a 4:5 PortraitFrame beside the name and introduction. Show the real portrait when configured; otherwise render the designed GK composition at the same dimensions. Provide visible, descriptive CTAs. Explore my work links to #work. View résumé resolves through the current published résumé endpoint and is absent when no valid résumé exists. The header and hero should provide enough information to understand the site without animation or scrolling.
+
+SELECTED WORK
+Render the two seeded projects as substantial editorial spreads. Weather App uses media left and text right on wide screens; the earlier portfolio reverses the balance. Use a small project number, title, two-line summary, tools, and a View project link. Avoid making the entire article an inaccessible nested click target. Keep the title link and action keyboard reachable without duplicate confusing announcements.
+
+On phones, order each spread as title, media, summary, tools, and action. Preserve the same reading order in the DOM where practical; CSS arrangement must not make keyboard focus jump unpredictably. If no screenshot exists, show a styled blank artwork area with the project title and "Project screenshot to be added." Do not render fake browser screenshots containing invented UI.
+
+EXPERIENCE
+Present the internship as one focused entry with a date column, organization, role, and supported description. Avoid adding empty timeline years. An expandable details interaction is unnecessary for a single concise entry; prioritize readable content.
+
+COMMUNITY
+Use the full-width teal section as the strongest visual change on the page. Inside the normal content container, show an introductory heading, a semantic vertical timeline of the two roles, and a clearly separated IEEE Day 2025 recognition block. Each figure has a precise label: "500+ registrations," "10+ events and workshops," "200+ students engaged," or "1,500+ registrations." Never make a free-floating number imply an unrelated metric.
+
+Keep the public timeline static enough to scan. Do not add animated counters that suggest live metrics. On phones the timeline uses a single left-hand rule and stacked entries, not a horizontally scrolling strip.
+
+ABOUT AND QUALIFICATIONS
+Start with the supplied biography. Use a desktop composition with biography and a compact education list, followed by grouped skills and recognition. Render all three education entries. The university entry can be visually prominent; school results remain available without overpowering the work section.
+
+Render skills as named groups. Certificates use title, issuers, and a verified external link. Recognition can use short text rows rather than large empty cards. Optional missing dates disappear cleanly. Include only one public occurrence of a long achievement description unless a shorter contextual reference is useful elsewhere.
+
+CONTACT
+Use the final section to create a calm ending: a large serif invitation, verified social/email links, and a practical form. Subject is optional; name, email, and message are required. Include a short data notice linked to /privacy. Do not add a misleading checkbox suggesting a legal compliance guarantee. Contact data is used to receive and respond to the inquiry; actual retention settings must match the notice.
+
+A copy-email control can be included only if it works. Provide a mailto fallback, announce "Email address copied" after a successful clipboard write, and report clipboard failure without hiding the address. Phone visibility is an owner setting; seed it off for the public page while retaining the supplied number in the draft. The downloadable original CV already contains the number; the admin should explain that hiding the page's phone field does not redact the PDF.
+
+FOOTER
+Use a simple rule, the owner's name, current year, and concise social links. Do not place admin links prominently in the public navigation. An owner can navigate directly to /admin.
+
+REQUIRED REUSABLE COMPONENTS
+PublicShell: shared header/footer, skip link, page width, main landmark.
+SiteHeader: identity, navigation items, active section, mobile-menu controls.
+ChapterHeading: number, heading, optional introduction, light/dark tone.
+PortraitFrame: nullable MediaRef, approved variants, priority, placeholder/failure state.
+ProjectSpread: PublicProject, index, desktop alignment, explicit link controls.
+ProjectDetail: one public project, optional gallery, neighboring project link.
+ExperienceEntry: organization, role, precision-preserving dates, description.
+LeadershipTimeline: ordered entries and scoped metrics.
+EducationList: ordered qualifications and correctly formatted results.
+SkillGroups: group titles and text labels.
+RecognitionList and CertificateList: supported entries with optional verified links.
+ContactForm: field values, validation, request identity, submission states.
+ResumeLink: current résumé availability, resolved endpoint, accessible action text.
+ExternalLink: validated http/https destination and consistent external-link behavior.
+ImagePlaceholder: purposeful portrait/project fallback without a fake image.
+LoadingState, EmptyState, InlineError, ErrorBoundary, NotFoundPage.
+
+Use typed props generated from, or checked against, the backend schema. Components do not fetch unrelated data, silently invent fallbacks, or own authorization logic. Public components must accept only public DTOs; do not hand them a complete admin draft and hide fields with CSS.
+
+======================================================================
+08. PROJECT DETAIL TEMPLATES AND MEDIA PLACEHOLDERS
+======================================================================
+
+A case-study page has these sections, in order:
+1. Breadcrumb back to Work.
+2. Project category, title, supported summary, and technology line.
+3. Hero media or labeled project placeholder.
+4. Overview and the verified "What I built" list.
+5. Optional authored decisions, challenges, and reflections.
+6. Optional gallery with captions and meaningful alt text.
+7. Verified live and repository links.
+8. Navigation to another current published project and a contact link.
+
+Do not generate long imaginary case studies to make the design look populated. Both initial pages can be concise, complete, and attractive with the supported facts in section 03. An absent optional section should leave no empty heading or placeholder paragraph on the public page. The admin can show instructional placeholders inside empty fields.
+
+The gallery starts with no images. Once populated, display responsive images with explicit dimensions. A lightbox is optional; if implemented, it must support keyboard navigation, Escape, focus restoration, clear captions, and a visible close button. Do not autoplay slides. Every image remains understandable outside the lightbox.
+
+Project routes use stable item IDs internally and slugs for public URLs. A missing or hidden project returns a true 404. A previously published slug may redirect only to the current visible project that has the same stable ID. A withdrawn project is removed from the application's redirects, sitemap, public API, and any application-owned search index. Its media becomes unavailable only when no item in the current public projection still references it. The application cannot recall downloaded bytes or promise immediate removal from external search-engine caches.
+
+Do not place a fake repository link pointing at the owner's GitHub profile under a "Source code" label. A general GitHub profile link belongs in the site's social links. Demo links may open a new tab with an appropriate rel value and accessible context; be consistent across both projects.
+
+Use metadata from the actual project: title, concise description, canonical current URL, and a permitted social image. If no screenshot exists, a designed title/initials social card is acceptable when it is presented as site artwork rather than evidence of the project interface.
+
+======================================================================
+09. PHOTO, RÉSUMÉ, AND PROJECT MEDIA EXPERIENCE
+======================================================================
+
+PORTRAIT EMPTY STATE
+The missing photograph is not a broken asset. Render a sage panel with large teal serif initials "GK," a fine copper detail, and "Portrait coming soon." Give the component reserved 4:5 dimensions. Decorative lettering should not produce a verbose screen-reader announcement; the accessible description can identify the portrait placeholder once.
+
+PORTRAIT UPLOAD WORKFLOW
+1. Select a JPEG, PNG, or WebP within the displayed 8 MiB limit.
+2. Show upload progress or an indeterminate processing state if exact progress is unavailable.
+3. The backend validates and decodes the file, applies orientation, strips metadata, and creates safe variants.
+4. The editor shows a 4:5 crop preview and a separate mobile preview.
+5. The owner adjusts horizontal position, vertical position, and zoom, using either pointer controls or equivalent labeled numeric/slider controls.
+6. Applying the crop creates a new immutable derived media asset. It does not replace bytes at an existing public URL.
+7. The owner supplies alt text, saves the draft, previews, and publishes.
+
+Store crop bounds normalized to the decoded source image: x, y, width, height in [0,1], with positive dimensions and no overflow. Validate the 4:5 ratio in source-pixel space, allowing only documented pixel-rounding tolerance. Do not compare normalized width/height directly as if every source were square. Reset returns to a centered valid crop. A very small image can be accepted with a quality warning, but do not upscale it excessively or claim it is high resolution.
+
+Both desktop and mobile use the saved framing. Remove portrait switches the draft back to the GK placeholder. Cancel retains the existing selection. A failed upload, crop, or save keeps the previously valid asset and provides a retry. The published portrait changes only after a successful publish transaction.
+
+PROJECT MEDIA
+Support one optional cover and an ordered gallery of up to 12 images per project. Each image reference has meaningful alt text and an optional caption. Provide keyboard-accessible move-up/move-down controls as well as optional drag reordering. A cover does not need to be duplicated in the gallery.
+
+RÉSUMÉ
+Import the supplied Gagandeep_kaur_resume.pdf through the same validated media pipeline when the file is accessible. Make the seed/import command accept an explicit résumé path; do not commit absolute paths from this workspace. If the attachment is unavailable to the implementation environment, create a working upload control and hide the public download until an actual PDF is supplied. Do not fabricate a replacement résumé or expose an empty PDF.
+
+Résumé replacement is a draft edit. The existing public PDF remains available until publication. Use a stable /api/v1/resume route that resolves the current release and serves the active file with a safe filename such as Gagandeep_Kaur_Resume.pdf. Return 404 when no public résumé exists. Display file type and size where useful.
+
+MEDIA LIBRARY UI
+Show a thumbnail or PDF icon, original display name, upload date, dimensions/type, size, processing status, and usage. Allow filtering by image/PDF and searching display names. A delete action displays what currently references the asset and is blocked while a retained draft, release, or derived child requires it. Distinguish removing an image from a page from permanently deleting stored bytes.
+
+======================================================================
+10. OWNER ADMINISTRATION AND EDITORIAL WORKFLOWS
+======================================================================
+
+ADMIN SHELL
+Provide a stable sidebar on desktop and a usable navigation drawer on mobile. Main areas: Overview, Profile, Projects, Experience, Community, About, Settings, Media, Inbox, History. Include the signed-in owner, logout, saved-state indicator, Preview, and Publish. The public visual identity can influence typography and color, but editing controls should favor clarity and density.
+
+OVERVIEW
+Display current draft revision, live release number and publication time, whether saved changes differ from live, unread contact count, and helpful missing-asset notices. These are real backend values. Do not add fake analytics charts, visitors, uptime, or lead conversion figures.
+
+EDITOR FORMS
+Profile: name, role label, hero eyebrow, intro, biography, institution context, contact values, social URLs, portrait, résumé, and phone visibility.
+Projects: list/order/visibility; create/edit/delete draft item; title, slug, category, summary, overview, feature bullets, technologies, optional narrative blocks, links, cover, gallery, captions, SEO overrides.
+Experience: organization, role, date precision, description, bullets, tools, order, visibility.
+Community: IEEE roles, dates, supported descriptions, scoped metric labels, featured event note.
+About: education, skill groups, certification, recognition; add/edit/reorder/hide entries.
+Settings: section introductions, allowed navigation labels, section visibility, SEO title/description, site URL, contact settings, public phone toggle, résumé visibility, optional availability text disabled initially.
+
+Do not expose arbitrary raw HTML, arbitrary scripts, arbitrary CSS, unknown routes, database IDs as confusing user-facing labels, or unrestricted remote media URLs in ordinary forms. A developer-oriented JSON export can exist as a separate authenticated diagnostic feature only if useful; it is not the normal editing interface.
+
+SAVING
+Use an explicit Save Draft action. Maintain one central in-memory draft state for the owner session so moving between content tabs preserves unsaved changes. Show Unsaved changes, Saving, Saved, Save failed, or Conflict. Do not show "Saved" when only browser memory changed. Disable accidental duplicate saves while a request is pending, but allow canceling navigation dialogs.
+
+A save replaces the complete small SiteContent document with an If-Match revision precondition. Successful saves update the local revision and saved baseline. Warn before browser/tab navigation when unsaved changes exist. Do not persist sensitive content or session tokens in localStorage. If sign-in expires, keep recoverable unsaved edits in the existing in-memory page while requesting reauthentication; a full browser reload may lose them, and the UI should be honest about that.
+
+PREVIEW
+Preview uses the same public React components with a server-produced public-shaped projection of the saved draft and authenticated owner-only media URLs. Never pass raw SiteContent or a private release source snapshot into public components. Show a persistent "Draft preview" banner, the draft revision, a return-to-editor action, and desktop/mobile viewport toggles. A viewport toggle changes the preview container width, not the browser user agent. Preview must not be indexed, included in sitemaps, cached publicly, or shared through a bearer token embedded in a URL. A hidden project's dedicated authenticated preview can include that selected item without changing its visibility; label it "Hidden project preview."
+
+PUBLISH
+The action opens a concise review dialog listing changed sections, publication validation errors, the draft revision, and the currently live release. Publish submits explicit preconditions and an idempotency key. On success show the actual new release number and a View live site link. Saving, previewing, and publishing are distinct operations.
+
+HIDING AND RESTORING
+Hiding a project or section updates the draft. It remains live until the owner publishes. Label this clearly. Restore an older release into a new draft, inspect the result, then publish if desired. Do not silently move the live pointer when the owner clicks Restore to draft.
+
+INBOX
+Provide paginated rows with sender, subject, created time, read state, and archive state. Detail view shows the escaped plain-text message and a mailto reply link. Mark read when explicitly opening the message, after the server accepts the update. Archive is reversible. Delete requires a specific confirmation and removes the stored message; keep only a short-lived non-content idempotency tombstone when needed to prevent retry recreation.
+
+There is no public signup, team invitation, public comments, or visitor account management. Password changes require the current password and revoke other sessions. Lost-password recovery is an authenticated operator CLI action unless a complete verified recovery flow is deliberately implemented later.
+
+======================================================================
+11. CANONICAL CONTENT TYPES AND VALIDATION
+======================================================================
+
+Use one versioned JSON document for the small portfolio content model, validated by strict Pydantic schemas. Store it in PostgreSQL JSONB, but do not accept arbitrary JSON. Generate matching TypeScript types from OpenAPI or maintain checked generated contracts. Use snake_case wire keys consistently.
+
+Canonical SiteContent shape:
+{
+  "schema_version": 1,
+  "profile": ProfileContent,
+  "projects": ProjectContent[],
+  "experience": ExperienceContent[],
+  "leadership": LeadershipContent[],
+  "education": EducationContent[],
+  "skill_groups": SkillGroupContent[],
+  "recognition": RecognitionContent[],
+  "certifications": CertificationContent[],
+  "settings": SiteSettings
+}
+
+This is a schema illustration, not literal seed JSON. Generate an actual complete seed fixture from sections 02 and 03 with stable UUIDs. Do not put type names or ellipses into a runtime fixture.
+
+COMMON TYPES
+ContentItem: id UUID; is_visible boolean; position nonnegative integer. IDs are stable across edits, slug changes, and releases. Enforce unique IDs in each collection and unique visible ordering positions after normalization.
+MediaRef: asset_id UUID; alt string, 1–180 characters for meaningful images. Caption is an optional separate field on gallery entries. Never allow arbitrary storage paths in a content reference.
+PartialDate: value string in YYYY or YYYY-MM form; precision enum year|month. For current roles, end is null and is_current=true. For completed entries, is_current=false. Do not coerce missing day precision into a date exposed as an actual day.
+Metric: value string such as "500+"; label string; context string. A metric must remain attached to the relevant role/event.
+NarrativeBlock: stable id; kind in paragraph|bullet_list; optional heading; text or items. No raw HTML blocks.
+
+PROFILE
+full_name (1–100), role_label (1–120), hero_eyebrow (0–160), intro (1–400), biography (0–2000), institution_context (0–180), email (validated address), phone_display and phone_e164 (nullable), github_url and linkedin_url (nullable approved http/https URLs), portrait (MediaRef|null), resume_asset_id (UUID|null). A separate setting controls public phone/résumé visibility. Public DTOs omit hidden contact values instead of exposing them behind a hidden component.
+
+PROJECT
+ContentItem plus slug, title, category, summary, overview, feature_bullets, technologies, narrative_blocks, live_url, repository_url, cover, gallery, seo_title, seo_description.
+Draft limits: slug is empty or 3–80 lowercase letters/digits/hyphens; title 1–120; category 0–80; summary 0–300; overview 0–3000; up to 10 feature bullets of 300 characters; up to 20 technology names of 40 characters; up to 12 narrative blocks; up to 12 gallery entries. Empty slugs, summaries, overviews, and technology lists are permitted while editing. Publication requires nonempty valid values for every visible project. Optional URLs are null when absent. SEO title is at most 70 characters and description at most 180 as editorial limits, not search-engine guarantees.
+
+EXPERIENCE
+ContentItem plus organization, role, start, end, is_current, description, bullets, technologies. Organization/role at most 140 each; description at most 2000; up to 10 bullets. Validate end does not precede start when comparable. Preserve source month/year precision.
+
+LEADERSHIP
+ContentItem plus organization, role, start, end, is_current, description, bullets, metrics. Up to four scoped metrics per item. The IEEE Day 2025 callout may be a recognition entry referenced by settings; do not create inconsistent copies with different numbers.
+
+EDUCATION
+ContentItem plus qualification, institution, start_year nullable, completion_year nullable, is_current, result_label, result_value, result_note. Store 9.24 as its supplied decimal/string representation, not a percentage conversion. A result label distinguishes CGPA from Percentage. Validation rejects impossible year ranges but does not invent missing years.
+
+SKILLS
+ContentItem plus group_name and items (1–30 unique strings, each at most 80). Preserve human-readable names; no proficiency percentages.
+
+RECOGNITION
+ContentItem plus title, description, event_name, event_year nullable, result_label nullable, metric nullable, link nullable. The Vihaan record uses finalist. The relay record uses first place. The IEEE Day 2025 record carries the registration count.
+
+CERTIFICATION
+ContentItem plus title, issuers (1–4 strings), issued_on nullable PartialDate, credential_id nullable, credential_url nullable. Do not require a date that the source does not provide.
+
+SETTINGS
+site_url, default_seo_title, default_seo_description, section_labels/intros keyed by the fixed home sections, visible_sections, featured_project_ids, featured_recognition_id nullable, show_phone=false, show_resume=true when valid PDF exists, availability_enabled=false, availability_text nullable. Security settings, retention duration, rate limits, SMTP, and deployment secrets are environment/operator configuration, not editable arbitrary strings in the public CMS.
+
+LIMITS AND PUBLICATION RULES
+- Entire draft JSON request: maximum 256 KiB before parsing.
+- Up to 30 projects and 50 items in each other collection; reject excess with field errors.
+- No unknown schema keys. Normalize whitespace without corrupting multiline text.
+- Only safe http/https external URLs; reject javascript/data/file schemes, credentials in URLs, and malformed addresses. Never fetch arbitrary owner-entered URLs server-side.
+- Visible projects require title, unique valid slug, summary, overview, and at least one technology at publication. Apply separate draft and publication validators; saving an unfinished visible project can succeed while publishing it returns actionable field errors. Hidden incomplete items do not block publication of the remaining content.
+- Draft validation permits unfinished optional narrative fields. Publication validates all visible fields, visible media references, public identity, and configured links.
+- Public projection filters hidden items/sections and removes internal notes, original filenames, storage keys, admin metadata, invisible phone values, and draft-only fields.
+- A content schema migration must explicitly upgrade old drafts/releases or retain a compatible reader. Do not let a new application version make historical releases unreadable.
+
+======================================================================
+12. POSTGRESQL SCHEMA AND DATA INTEGRITY
+======================================================================
+
+Use Alembic migrations, UUID identifiers, TIMESTAMPTZ timestamps in UTC, explicit foreign keys, and indexes that support actual queries. Keep one writable content document. Do not introduce independently writable project/education tables that can diverge from it.
+
+site_drafts
+- id SMALLINT primary key, constrained to 1.
+- schema_version INTEGER not null.
+- content JSONB not null, validated against SiteContent.
+- revision BIGINT not null, positive, incremented on each successful replacement or restore.
+- updated_by UUID nullable foreign key to admin_users; null for initial operator seed.
+- updated_at TIMESTAMPTZ not null.
+
+site_releases
+- id UUID primary key.
+- revision BIGINT unique not null, assigned by a database sequence; gaps are allowed.
+- schema_version INTEGER not null.
+- source_content JSONB not null: private full validated content used for restoration.
+- public_content JSONB not null: separately derived public projection.
+- content_hash TEXT not null: canonical source-content digest.
+- source_draft_revision BIGINT not null.
+- publish_idempotency_key UUID unique not null.
+- publish_request_hash TEXT not null.
+- created_by UUID nullable foreign key to admin_users.
+- created_at TIMESTAMPTZ not null.
+Releases are immutable through application APIs. Public endpoints select public_content explicitly; never serialize the release ORM object or source_content. The existence of a private historical source snapshot does not grant public access to its hidden fields or media.
+
+site_state
+- id SMALLINT primary key, constrained to 1.
+- live_release_id UUID nullable foreign key to site_releases, deletion restricted.
+- updated_at TIMESTAMPTZ not null.
+Before initialization there may be no live release; treat this as a configured maintenance/unpublished state, not a successful empty portfolio.
+
+admin_users
+- id UUID primary key; normalized_email TEXT unique not null.
+- password_hash TEXT not null; is_active BOOLEAN not null.
+- created_at, updated_at, password_changed_at TIMESTAMPTZ.
+Enforce the one-owner product rule in the bootstrap service. Do not expose a public account-creation endpoint.
+
+admin_sessions
+- id UUID primary key; admin_user_id foreign key not null.
+- token_digest TEXT unique not null; csrf_token_digest TEXT not null.
+- created_at, expires_at, last_activity_at TIMESTAMPTZ not null.
+- revoked_at TIMESTAMPTZ nullable.
+Index active lookup/expiry. Never store the bearer session token or raw password.
+
+media_assets
+- id UUID primary key; kind image|pdf; status processing|ready|deleted|failed.
+- verified_mime TEXT; sanitized_source_key TEXT private; variants JSONB private.
+- source_width/source_height INTEGER nullable; page_count INTEGER nullable.
+- byte_size BIGINT, sha256 TEXT, original_display_name TEXT.
+- parent_asset_id UUID nullable foreign key to media_assets, deletion restricted.
+- crop JSONB nullable, using the validated normalized crop contract.
+- created_by UUID nullable; created_at, deleted_at TIMESTAMPTZ.
+Variants record actual width, height, MIME, byte count, hash, and private key. A public DTO returns approved same-origin variant URLs and dimensions, never private keys or original upload paths. Asset bytes and variant identities are immutable after ready.
+
+contact_submissions
+- id UUID primary key; idempotency_key UUID unique not null; request_hash TEXT not null.
+- name, email, subject, message TEXT, validated and nullable only after deletion/retention scrubbing. Normalize an omitted subject to an empty string while the submission is active.
+- is_read BOOLEAN default false; is_archived BOOLEAN default false.
+- notification_status enum not_configured|pending|processing|sent|failed.
+- created_at, updated_at TIMESTAMPTZ; deleted_at nullable; receipt_expires_at TIMESTAMPTZ.
+- notification_attempted_at nullable; sanitized notification_error_code nullable.
+Index created_at and the unread/unarchived list filter. Messages are plain text. Deletion scrubs sender/content fields and retains only the receipt/key/hash until the short retry window expires; cleanup then deletes the tombstone. A replay during that window returns the same receipt without recreating the message.
+
+rate_limit_buckets
+- scope TEXT; key_digest TEXT; window_start TIMESTAMPTZ as composite unique key.
+- count INTEGER nonnegative; expires_at TIMESTAMPTZ.
+Use atomic inserts/updates or locked rows, deterministic lock order, and cleanup of expired buckets. An in-process dictionary is not sufficient across API workers.
+
+slug_redirects
+- old_slug TEXT primary key; project_id UUID not null; created_release_id foreign key.
+The project ID refers to a stable UUID inside content snapshots, so enforce referential rules in the publishing service. Do not pretend a conventional SQL foreign key can point inside arbitrary JSONB.
+
+admin_audit_events
+- id UUID primary key; actor_id nullable foreign key; operation TEXT; target_type/target_id nullable.
+- request_id UUID; metadata JSONB restricted to safe identifiers/status; created_at.
+Record login security events, publish, restore, media deletion, and contact deletion without storing secrets or full draft/message bodies in the audit table.
+
+All JSON asset references are checked through one typed reference-extraction function used by save, publish, restore, deletion, and backup verification. A string search through serialized JSON is not a reliable reference check. Transactions, not UI state, enforce uniqueness and ownership.
+
+======================================================================
+13. API CONTRACTS AND ERROR BEHAVIOR
+======================================================================
+
+All business routes use /api/v1. JSON field names are snake_case. Responses include a request ID header; error bodies repeat the request ID. Use Pydantic response models to prevent accidental private-field serialization.
+
+PUBLIC API
+GET /site
+  200: {release: {id, revision, published_at}, content: PublicSiteContent}.
+  Read the live pointer and its public snapshot consistently in one query/transaction. PublicSiteContent omits invisible items and private fields. There is no draft=true query parameter.
+
+GET /projects/{slug}
+  200: {release: {id, revision}, requested_slug, canonical_slug, project: PublicProject}.
+  404: unknown, hidden, or withdrawn project, including an alias for a withdrawn project.
+  A valid historical alias returns the current canonical_slug. The Next page issues a same-origin 308 redirect to /projects/{canonical_slug}. Never redirect to a client-provided external URL.
+
+GET or HEAD /media/{asset_id}/{variant}
+  200 only for a ready permitted variant referenced by the current public projection.
+  Variant is an allowlisted token such as thumb, card, full, or document, not a path.
+  Unknown/private/unreferenced assets return the same 404 behavior.
+
+GET or HEAD /resume
+  Resolve the résumé from the current public snapshot; serve the validated PDF with a safe attachment filename. Return 404 when unavailable.
+
+POST /contact
+  Require JSON, same-origin policy, and Idempotency-Key: <UUID>.
+  First committed success: 201 {receipt_id: <UUID>, status: "received"}.
+  Identical replay: 200 with the same receipt. See section 17 for the complete transaction.
+
+OWNER AUTHENTICATION
+POST /admin/auth/login
+  Body: {email, password}. Validate origin and JSON content type.
+  200 sets a new opaque session cookie and returns owner display data and a CSRF token.
+POST /admin/auth/logout
+  Authenticated and CSRF protected; 204 revokes the session and clears the cookie.
+GET /admin/auth/session
+  200: {owner: {id, email}, csrf_token, expires_at}; 401 when missing/expired.
+  The CSRF token is session-bound, held in memory by the client, and is not an auth token.
+POST /admin/auth/change-password
+  Body: {current_password, new_password}; authenticated and CSRF protected.
+  Verify current password, update hash, revoke other sessions, rotate the current session.
+
+OWNER CONTENT
+GET /admin/draft
+  200: {revision, content: SiteContent, live_release: {id, revision}|null}.
+  ETag header: "draft-12", using the actual current revision.
+GET /admin/preview
+  200: {draft_revision, content: PublicShapedPreviewContent, validation_warnings}.
+  Project through the public-shaped schema with owner-only media URLs, authenticated and no-store. Apply normal visibility for the home preview. Missing publication-required fields produce clearly labeled preview placeholders/warnings, never invented factual content.
+GET /admin/preview/projects/{project_id}
+  200: {draft_revision, project: PublicShapedProjectPreview, is_hidden, validation_warnings}.
+  Resolve by stable ID, including an unpublished/hidden item for owner review. Reuse the public presentation contract with authenticated media URLs. No anonymous preview equivalent exists.
+PUT /admin/draft
+  Body: complete SiteContent document. Require If-Match: "draft-12" and CSRF.
+  200: updated draft envelope and new ETag. Missing precondition 428; stale 412.
+POST /admin/publish
+  Body example:
+  {
+    "expected_draft_revision": 12,
+    "expected_live_release_id": "20000000-0000-4000-8000-000000000001",
+    "idempotency_key": "30000000-0000-4000-8000-000000000001"
+  }
+  Use null for expected_live_release_id before the first release.
+  201: {release: {id, revision, published_at}, source_draft_revision}.
+  An identical completed replay returns 200 with the original receipt.
+GET /admin/releases?cursor=...&limit=20
+  Paginated release summaries, not every full private snapshot.
+GET /admin/releases/{id}
+  Authenticated historical detail and restorable content.
+POST /admin/releases/{id}/restore
+  Require current draft If-Match and CSRF. Copy private source_content to a new draft revision; return the draft envelope. Do not publish.
+
+OWNER MEDIA
+GET /admin/media?kind=image&cursor=...&limit=30
+POST /admin/media, multipart with one file; return 201 verified asset metadata.
+POST /admin/media/{id}/crop, JSON normalized crop; return 201 new derived asset.
+GET or HEAD /admin/media/{id}/{variant}, owner-only bytes.
+DELETE /admin/media/{id}, CSRF protected; 204 if logically deleted, 409 when referenced.
+
+OWNER CONTACT
+GET /admin/contact?status=unread|all|archived&cursor=...&limit=30
+GET /admin/contact/{id}
+PATCH /admin/contact/{id}/status, body {is_read?, is_archived?}; return accepted state.
+DELETE /admin/contact/{id}, CSRF protected; 204 after PII scrubbing/tombstone handling.
+A contact read response never includes SMTP passwords, IP identifiers, or internal infrastructure data. Lists return short excerpts; full text is available only on detail.
+
+OPERATIONAL
+GET /health/live and GET /health/ready under the same API prefix. These return minimal health status; internal metrics and diagnostics remain protected.
+
+PAGINATION
+Use a stable created_at plus UUID cursor for media, inbox, and history. Bound limit to 1–100. Return {items, next_cursor, has_more}. Reject malformed cursors. Apply deterministic ordering and do not use unbounded SELECT responses for a growing inbox.
+
+ERROR ENVELOPE
+{
+  "error": {
+    "code": "DRAFT_REVISION_MISMATCH",
+    "message": "The draft changed. Reload before saving.",
+    "details": {"current_revision": 13}
+  },
+  "request_id": "40000000-0000-4000-8000-000000000001"
+}
+
+Validation errors include a bounded field_errors array with paths and human-readable messages. Never echo passwords, whole uploaded files, internal SQL, stack traces, or private draft content in public errors.
+
+STATUS POLICY
+400 malformed request; 401 missing/expired session; 403 origin/CSRF/authorization failure; 404 unavailable public resource; 409 publication/idempotency/media-reference conflict; 412 stale draft ETag; 413 body/file too large; 415 unsupported file type; 422 validated field errors; 428 missing revision precondition; 429 limit with Retry-After; 503 required dependency unavailable. Use these consistently in the API client and tests.
+
+All content, preview, admin, public-media, résumé, and content-dependent redirects use Cache-Control: no-store initially. Keep GET and HEAD access rules equivalent. Expose API documentation locally; disable or protect interactive admin exploration in production according to the documented deployment configuration.
+
+======================================================================
+14. DRAFTS, ATOMIC PUBLISHING, HISTORY, AND SLUG REDIRECTS
+======================================================================
+
+DRAFT SAVE TRANSACTION
+Acquire the singleton draft row FOR UPDATE. Check the strong If-Match ETag; reject weak, wildcard, malformed, or stale values. Validate the complete document, referenced asset readiness, identifiers, and bounds. Replace content, increment revision exactly once, update actor/time, and commit. Failed validation or a failed transaction leaves the prior content/revision intact. A save has no effect on the live pointer.
+
+PUBLISH TRANSACTION
+Use fixed lock order: draft row, site_state row, then media rows in a stable order. Under the lock, check whether the idempotency key has already completed. If it has the same canonical request hash, return the original receipt without changing the pointer; if the payload differs, return 409 IDEMPOTENCY_CONFLICT.
+
+For a new operation:
+1. Verify expected_draft_revision and expected_live_release_id.
+2. Validate the saved draft for publication, including visible content and ready assets.
+3. Resolve the prior release and validate slug/alias ownership by project UUID.
+4. Derive one sanitized public projection.
+5. Insert one immutable release with private source_content and public_content.
+6. Record aliases for retained visible projects whose slugs changed.
+7. Update live_release_id and the audit record.
+8. Commit all changes together.
+
+Return a 409 publication conflict when either precondition changed. The UI reloads the current status and asks the owner to review the current content; it never silently publishes a revision the owner did not review. After any replay receipt, refetch current state: a successful historical receipt does not mean that release is still live.
+
+Read public content by joining the live pointer to one immutable snapshot. A home page fetches the aggregate once, then uses that object for all sections and metadata. Do not issue independent per-section queries that can combine two different releases during publication. Use request-scoped memoization if needed, not a persistent public-content cache.
+
+RESTORE
+Restore copies a release's full private source_content into a newly saved draft revision, preserving stable IDs and hidden items from that historical source. It leaves the live release unchanged. Validate media and schema compatibility. Show the owner what will change, especially if the current draft has edits. Require the current draft ETag. Publishing the restored draft creates a new release, preserving history.
+
+SLUG RULES
+A slug belongs to a stable project UUID. When a visible retained project changes slug, keep the old slug as an alias to that UUID. Resolve every alias against the current public snapshot, avoiding redirect chains. If the project is withdrawn, every alias returns 404. Reject reusing another project's retained alias. An alias that belongs to the same project can become its current canonical slug again.
+
+A project hidden only in the draft is still live until publication. A deleted draft item behaves the same way. Make that distinction clear in the editor. Never delete historical release rows as a side effect of hiding a project.
+
+Release retention is an operator maintenance task with a dry-run report. Do not delete the current release or invalidate restorable media silently. Preserve all releases by default for this small application; document how to prune old releases and then reclaim unreferenced media intentionally.
+
+======================================================================
+15. AUTHENTICATION, SESSIONS, AND AUTHORIZATION
+======================================================================
+
+Bootstrap the owner with a CLI that prompts securely for email/password. Do not seed a default password, accept a password as a visible shell argument, or put it in a README. Provide a separate password-reset CLI and session-revocation command for the operator.
+
+Use a maintained Argon2id library with documented parameters. Accept long passphrases without silent truncation. Require a minimum of 12 characters and a reasonable maximum such as 256 characters; enforce length before expensive hashing. Do not add arbitrary forced symbol rules. Login failures use one generic response rather than disclosing whether an account exists.
+
+Generate at least 32 cryptographically random bytes for the opaque session token. Store a digest only. Production cookie: __Host-portfolio_session; Secure; HttpOnly; SameSite=Lax; Path=/; no Domain. In explicit HTTP development mode use a different cookie name and visibly documented relaxed Secure setting. Production startup must refuse an insecure session-cookie configuration.
+
+Default session policy: 12-hour absolute lifetime and one-hour inactivity limit, enforced server-side. Rotate the token on login and password change. Logout revokes it immediately in PostgreSQL. Expired or revoked sessions cannot read draft media, inbox, history, or content even if the browser retains a cookie.
+
+Derive a session-bound CSRF token using HMAC-SHA-256 with the server-only CSRF_SECRET over a purpose-separated encoding of the presented opaque session token. Store its digest with the session and return the derived token through the authenticated login/session response. This lets the server reproduce it for GET /admin/auth/session without storing a plaintext bearer secret. Keep the derived CSRF token in frontend memory; never expose CSRF_SECRET itself. Compare submitted token digests safely. Rotating CSRF_SECRET requires revoking existing sessions unless explicit key versioning is implemented.
+
+Authenticated unsafe requests require X-CSRF-Token plus exact allowed Origin. A Referer fallback, if supported, must validate scheme, host, and port against the configured origin; do not use prefix matching. Login also requires same-origin JSON requests. Missing/foreign Origin is rejected unless a documented trusted non-browser operator route uses a separate explicit mechanism.
+
+Use same-origin browser routing. Do not use wildcard credentialed CORS. Trust forwarded host/protocol/IP headers only from configured proxies. Treat Host and returnTo inputs as untrusted. A login redirect destination must be a validated local /admin route; reject protocol-relative and encoded external destinations.
+
+Rate-limit login using PostgreSQL counters across workers, for example five failed attempts per 15 minutes for an IP/email pair and a broader per-source ceiling. Successful authentication can clear the narrow failure bucket. Avoid permanent account lockouts that an attacker can trigger indefinitely.
+
+Enforce authorization in every FastAPI admin handler/service dependency. Frontend route guards improve navigation but do not replace backend checks. Never place session tokens in URLs, localStorage, analytics events, or public Next props. Add CSP compatible with the actual Next application, frame-ancestors protection, nosniff, and a suitable Referrer-Policy. Verify the deployed CSP does not break legitimate framework scripts; do not use an untested policy copied from another app.
+
+======================================================================
+16. MEDIA PROCESSING, STORAGE, AND ACCESS CONTROL
+======================================================================
+
+Enforce body limits at the reverse proxy and while streaming in the API. Image maximum: 8 MiB. Résumé PDF maximum: 10 MiB. Configure proxy multipart overhead slightly above these per-file limits, while the API enforces the exact file limit. Only the authenticated owner uploads.
+
+For images, accept JPEG/PNG/WebP by verified decoder result, not extension or submitted MIME. Reject SVG, HTML, executables, animated files, invalid images, and decoded images above a documented cap such as 24 megapixels. Apply orientation, re-encode, strip EXIF/GPS and unnecessary metadata, and generate thumbnail/card/full variants with bounded dimensions. Never serve raw original uploads. Preserve aspect ratio; do not upscale beyond the decoded source merely to meet a target size.
+
+For portrait derivatives, enforce exact 4:5 output dimensions and preserve the original sanitized source privately for future recropping. The crop endpoint uses the contract from section 09. Finalizing a derived record acquires the draft lock then parent asset lock and rechecks parent readiness, preventing a concurrent deletion race. A crop returns a new asset ID. It does not attach itself to the draft or alter an existing published asset.
+
+For PDFs, verify the signature and parse a bounded unencrypted document with at most 20 pages. Reject malformed structure, JavaScript, launch actions, embedded attachments, and unsupported encryption. Do not claim that parsing constitutes antivirus certification. Use application/pdf, nosniff, and a sanitized attachment filename. Keep PDF validation errors useful without exposing parser internals.
+
+Storage adapter interface: write_private, read_private, stat, delete, and health_check. Implement a persistent local filesystem adapter; provide an S3-compatible private-bucket adapter or a tested extension point with explicit deployment limitations. Do not advertise S3 as implemented if it is only a stub. Both adapters use random server-created keys, never user-controlled paths. The local media root is outside the web root and mounted as a persistent volume.
+
+Process media outside long database transactions. Write temporary private files, decode/validate, generate variants, then register a ready asset. A processing failure removes temporary bytes and leaves no usable public record. A crash can leave private orphans; provide a maintenance command that reports and cleans them after a safe age threshold. Missing storage during a read returns a controlled error and logs a request ID, not an arbitrary local path.
+
+Public asset authorization is derived from the current public_content snapshot at request time. A historical release or draft reference alone is insufficient. Allow only the requested approved variant for the referenced kind. The owner endpoint may access retained ready assets for editing and history. Public requests for private, missing, deleted, or hidden-only assets use uniform 404 responses.
+
+Serve generated variants directly with no-store. Bypass or block Next's image optimizer for managed media; do not create a second publicly cached /_next/image route around access control. Do not mount the media volume as a public nginx directory or expose permanent public bucket URLs. An asset removal cannot recall bytes already downloaded; document this practical limit without claiming absolute revocation.
+
+If publication races an old page's image request, the old asset may become unavailable. The image component should fall back gracefully and, at most once, refresh the current release; it must not bypass authorization to recover old bytes.
+
+For deletion, acquire the singleton draft lock first, then the asset lock. Check typed references in the current draft, every retained source/public release, and derived children. Any reference returns 409 MEDIA_IN_USE with an owner-safe usage summary. Draft saves, publication, restoration, and crop finalization use compatible lock ordering, preventing a new attachment from racing deletion.
+
+For an unused asset, mark deleted transactionally before removing bytes. If physical removal fails, access stays denied and cleanup retries later. Do not delete a parent while a retained derivative depends on it. Replacing a visible image changes a reference in a later release; it never mutates old asset bytes.
+
+======================================================================
+17. CONTACT DELIVERY, INBOX, IDEMPOTENCY, AND ABUSE CONTROLS
+======================================================================
+
+CONTACT BODY
+{
+  "name": "A prospective collaborator",
+  "email": "sender@example.com",
+  "subject": "Project enquiry",
+  "message": "A plain-text message describing the opportunity.",
+  "website": ""
+}
+
+website is an optional honeypot omitted from keyboard/screen-reader navigation and clearly separated from legitimate fields. It is only an additional spam signal. A filled honeypot can receive a generic rejection; do not fabricate a persisted-success receipt. No public file attachments are supported.
+
+Limits: name 1–100 characters, validated email at most 254, optional subject at most 150, message 10–5000, entire JSON body 16 KiB. Normalize an absent subject to an empty string before storage and canonical hashing. Trim appropriate surrounding whitespace, preserve meaningful newlines, and render content as escaped text. Reject unsupported fields and control characters unsafe for processing. Do not demand a phone number.
+
+The client generates one UUID idempotency key for one intended submission. Once a request is sent, keep its exact normalized payload/key through timeouts and retry. If the user deliberately changes the message after an ambiguous result, explain that retrying the original can determine whether it was received; do not silently reuse the old key for changed content.
+
+TRANSACTION
+1. Validate JSON, same-origin policy, lengths, and anti-abuse signals.
+2. Compute a canonical request hash over validated message fields, excluding transient client UI metadata.
+3. Acquire rate-limit bucket locks in deterministic order, including the site-wide bucket.
+4. Check for the idempotency receipt under the serialized transaction path.
+5. If the same key/hash exists, return its receipt without charging counters or creating another notification. A different hash returns 409.
+6. For a new key, enforce limits, insert the message, and update counters in one transaction.
+7. Commit before returning 201.
+
+The unique key is a final database safeguard. Handle a concurrent unique conflict by rolling back the failed transaction, then reading the committed record in a fresh transaction and comparing its hash; never continue querying through an aborted PostgreSQL transaction or turn an expected retry into a generic 500. If the database is unavailable or commit fails, return 503, preserve the form/key, and do not show success.
+
+Suggested configurable defaults: five new submissions per source-IP bucket per 15 minutes and a site-wide ceiling of 100 new messages per hour. Use an HMAC-derived source identifier with a server-only secret, not raw IP addresses in permanent message rows. Trust IP headers only from configured proxies. Expire rate-limit buckets within a short operational window and clean them through the maintenance command. Return 429 with Retry-After; a valid completed retry should not consume another quota slot.
+
+MESSAGE RETENTION AND DELETION
+Document a default 180-day retention period for contact content, configurable by the operator. Implement a dry-run and actual cleanup command, and provide a scheduled invocation example. The /privacy notice must reflect the configured period and contact purpose; do not claim the cleanup runs automatically unless the deployment actually schedules it.
+
+Owner deletion or retention expiry scrubs sender/message data. Retain only the receipt UUID, idempotency key, hash, and expiry metadata for a 24-hour retry/tombstone window after deletion, then remove the tombstone. Deduplication is guaranteed only while the original receipt or tombstone is retained; after cleanup, an old UUID cannot be recognized. The client must not offer indefinite automatic retries. The public response does not reveal whether the owner read or deleted a message. Authenticated lists exclude deleted content. Backups have a separately documented retention period; deletion from the live database does not magically erase existing backups.
+
+OPTIONAL EMAIL NOTIFICATION
+The database inbox works with no SMTP configuration. If credentials are supplied, send a bounded best-effort notification after commit. Claim/record the attempt so duplicate client retries do not start another attempt. Use a configured fixed From and a validated Reply-To; never concatenate untrusted email headers. Record not_configured, pending, processing, sent, or failed accurately.
+
+A web-process background task is not guaranteed durable delivery. A process crash may interrupt notification; show the status honestly in the inbox and document it. Notification failure cannot roll back the received message. Do not promise exactly-once email, automatically resend indefinitely, or tell the visitor that an email reached the owner.
+
+INBOX BEHAVIOR
+Read/unread and archive/restore persist on the server and survive refresh. Display sender/email safely, render multiline message text without HTML execution, paginate long lists, and show useful empty states. Reply opens the owner's mail client with a safely encoded recipient and subject. The application does not silently send an answer.
+
+======================================================================
+18. FRONTEND STATE, RENDERING, AND FAILURE HANDLING
+======================================================================
+
+PUBLIC RENDERING
+Server-render the published home and project content. Fetch one release per page render with no-store and share it through that render's components/metadata. Do not ship all CMS editing code to public routes. Keep JavaScript islands small: mobile navigation, active chapter tracking, contact form, optional gallery controls, and progressive motion.
+
+A client-side error must not blank out the biography and project links already rendered by the server. Reserve media dimensions. Prioritize the hero portrait only when present; lazy-load below-fold media. Use an ordinary picture/img with approved variants or a framework image component explicitly configured to avoid managed-media optimization/caching.
+
+Do not fall back to stale hard-coded seed content when the API is down; it could resurrect withdrawn information. Render a useful retryable service-unavailable page with a 503 status where supported, and log the correlation ID. A missing project is a 404; an unavailable database is not evidence that a project does not exist.
+
+ADMIN STATE
+Use a DraftProvider for current document, last-saved baseline, revision, dirty sections, save status, and server field errors. TanStack Query owns server request state; it must not silently replace unsaved edits after background refetch. When fresh remote data arrives and local edits exist, show a conflict/reload decision.
+
+Mutations:
+- Save: complete document plus If-Match; update revision only after accepted response.
+- Publish: saved revision only; require saving or explicitly discarding unsaved local changes first.
+- Restore: replace current draft only after a confirmation that explains the effect.
+- Upload/crop: return ready media metadata; attaching to content is a separate draft edit.
+- Inbox status: optimistic feedback is permissible only with rollback on failure; confirmation of deletion follows server success.
+
+Keep authentication state in cookies and CSRF token in memory. A protected-route 401 leads to a sign-in screen or reauthentication dialog. Preserve unsaved in-memory edits if the page can remain open. Do not repeatedly retry unauthorized mutations or lose the user's form because a background session request failed.
+
+FIELD AND PAGE STATES
+Every remote interaction has idle/loading/success/empty/error where relevant. Use skeletons only for actually pending content. Form errors appear beside their fields and in an accessible summary; focus the first invalid field after a rejected submission. Success notifications use a polite live region. Network errors retain inputs and explain the next action.
+
+Use a shared API client for JSON errors, request IDs, credentials, CSRF headers, and bounded timeouts. Do not automatically retry unsafe mutations with a new key. Only retry a known idempotent operation using its original key and payload. Treat AbortError from user cancellation differently from server failure.
+
+======================================================================
+19. REPOSITORY STRUCTURE AND MODULE RESPONSIBILITIES
+======================================================================
+
+Use a monorepo with explicit frontend/backend boundaries. The following paths define responsibilities; small equivalent adaptations to an existing repository are acceptable when documented.
+
+/README.md                         Setup, product overview, exact commands.
+/package.json                      Workspace scripts and packageManager pin.
+/pnpm-workspace.yaml               JavaScript workspace definition.
+/pnpm-lock.yaml                    Committed frontend lockfile.
+/compose.yaml                      Local integrated development services.
+/compose.production.yaml           Production-like builds, proxy, volumes.
+/.env.example                      Placeholder configuration with classifications.
+/.gitignore                        Secrets, uploads, caches, build artifacts excluded.
+/Makefile                          Thin discoverable command wrappers.
+
+/apps/web/package.json
+/apps/web/next.config.ts           Framework/proxy/image configuration.
+/apps/web/tsconfig.json            Strict TypeScript configuration.
+/apps/web/Dockerfile               Multi-stage unprivileged production build.
+/apps/web/src/app/layout.tsx       Root fonts, document language, global CSS.
+/apps/web/src/app/(public)/page.tsx Home server-rendered aggregate.
+/apps/web/src/app/(public)/projects/[slug]/page.tsx
+/apps/web/src/app/(public)/privacy/page.tsx
+/apps/web/src/app/admin/login/page.tsx
+/apps/web/src/app/admin/(protected)/layout.tsx
+/apps/web/src/app/admin/(protected)/content/...     Content editor routes.
+/apps/web/src/app/admin/(protected)/media/page.tsx
+/apps/web/src/app/admin/(protected)/inbox/...      Inbox routes.
+/apps/web/src/app/admin/(protected)/history/page.tsx
+/apps/web/src/app/admin/(protected)/preview/...    Authenticated previews.
+/apps/web/src/app/error.tsx
+/apps/web/src/app/not-found.tsx
+/apps/web/src/app/robots.ts
+/apps/web/src/app/sitemap.ts
+/apps/web/src/components/public/  Portrait, project, chapter, timeline, contact.
+/apps/web/src/components/admin/   Editor, media picker, cropper, publish review.
+/apps/web/src/components/ui/      Accessible shared controls.
+/apps/web/src/lib/api/            Public/server/admin clients and error parsing.
+/apps/web/src/lib/generated/      Generated checked API types.
+/apps/web/src/lib/content/        Formatting and safe narrative rendering.
+/apps/web/src/providers/          DraftProvider and admin query/session state.
+/apps/web/src/styles/             Tokens, typography, global accessibility rules.
+/apps/web/src/test/               Component and form tests.
+/apps/web/public/                 Static brand artwork/fonts only, not private uploads.
+
+/apps/api/pyproject.toml           Dependencies, lint/type/test configuration.
+/apps/api/uv.lock                  Committed Python dependency lockfile.
+/apps/api/Dockerfile
+/apps/api/alembic.ini
+/apps/api/alembic/versions/        Reviewed schema migrations.
+/apps/api/app/main.py             Application factory and router setup.
+/apps/api/app/config.py           Validated environment settings.
+/apps/api/app/db.py               Engine, session lifecycle, transaction helpers.
+/apps/api/app/models/             Relational records from section 12.
+/apps/api/app/schemas/            Draft/public/auth/media/contact DTOs.
+/apps/api/app/api/public.py       Public content/project/resume endpoints.
+/apps/api/app/api/auth.py         Owner login/session/logout/password operations.
+/apps/api/app/api/admin_content.py
+/apps/api/app/api/admin_media.py
+/apps/api/app/api/contact.py
+/apps/api/app/api/health.py
+/apps/api/app/services/publishing.py
+/apps/api/app/services/content_validation.py
+/apps/api/app/services/media.py
+/apps/api/app/services/contact.py
+/apps/api/app/security/           Sessions, password hashing, CSRF, rate limits.
+/apps/api/app/storage/            Local and optional S3 adapters.
+/apps/api/app/cli.py              Seed/bootstrap/reset/cleanup/export commands.
+/apps/api/seed/portfolio.json      Actual CV-grounded fixture, stable IDs.
+/apps/api/tests/unit/
+/apps/api/tests/integration/
+
+/infra/nginx/                     API and web routing, sizes, headers, TLS examples.
+/scripts/                        Safe migration, backup, restore, verification scripts.
+/tests/e2e/                      Real-browser journeys through the integrated proxy.
+/.github/workflows/ci.yml         Verification gates for the chosen Git host.
+/docs/architecture.md            Data flow and design decisions.
+/docs/content-editing.md         Owner guide, preview/publication, media instructions.
+/docs/api.md                     Error conventions and generated contract workflow.
+/docs/deployment.md              Supported topology and exact release commands.
+/docs/backup-restore.md          Coordinated database/media recovery.
+/docs/verification.md            Commands actually run, results, limits.
+/docs/content-provenance.md      CV mapping and intentionally missing information.
+
+Routers validate transport and call services. Services own transactions and business rules. Storage adapters own bytes, not publishing decisions. Shared schemas define contracts. Avoid putting everything into main.py or duplicating validation independently in every route. Keep reusable components separate from owner content fixtures.
+
+======================================================================
+20. CONFIGURATION, LOCAL DEVELOPMENT, AND REPRODUCIBLE COMMANDS
+======================================================================
+
+Use pnpm for the web workspace and uv for Python dependency management unless an existing repository has an established equivalent. Pin tool versions and document installation prerequisites for Linux and Apple Silicon macOS. A reader must be able to follow the README without guessing working directories or inventing commands.
+
+Implement these command entry points, with accurate behavior and failure exit codes:
+make install         Install locked JavaScript/Python dependencies.
+make dev             Start local services and development servers.
+make migrate         Run the reviewed Alembic upgrade once.
+make seed            Initialize an empty site from the CV fixture.
+make import-resume RESUME_PATH=/absolute/path/to/Gagandeep_kaur_resume.pdf
+make admin-create    Interactive secure owner bootstrap.
+make admin-reset     Interactive operator password reset and session revocation.
+make test            Unit and PostgreSQL integration tests.
+make e2e             Real-stack browser acceptance suite.
+make build           Production frontend/backend build checks.
+make verify          Required lint, types, tests, and build gates.
+make up              Start the integrated production-like Compose configuration.
+make down            Stop services without deleting persistent volumes.
+make backup          Produce coordinated protected database/media backup.
+make restore         Restore a selected backup into explicitly selected empty targets.
+make cleanup-dry-run Report expired sessions, buckets, contacts, and orphan files.
+make cleanup         Apply the documented maintenance policy.
+
+Make targets are wrappers around real checked commands, not README-only promises. Validate they work from the repository root. If a command needs an input, document and validate it before mutation. Destructive volume deletion must not be part of ordinary down/reset development instructions without an explicit warning and deliberate separate command.
+
+ENVIRONMENT CONTRACT
+APP_ENV: development|test|production, server runtime.
+PUBLIC_ORIGIN: canonical browser origin, server runtime; exact origin validation authority.
+API_INTERNAL_URL: private Next-server URL, e.g. http://api:8000/api/v1; never browser exposed.
+DATABASE_URL: secret credential-bearing connection URL, API only.
+MEDIA_BACKEND: local|s3, server runtime.
+MEDIA_ROOT: private persistent path for the local adapter.
+CSRF_SECRET: secret random HMAC key, API only.
+ABUSE_HMAC_SECRET: separate secret key for source identifiers.
+SESSION_ABSOLUTE_SECONDS: default 43200.
+SESSION_IDLE_SECONDS: default 3600.
+TRUSTED_PROXY_CIDRS: explicit trusted proxy networks.
+CONTACT_RETENTION_DAYS: default 180; reflected in privacy notice.
+CONTACT_IP_LIMIT, CONTACT_SITE_LIMIT: documented rate-limit values.
+SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM, CONTACT_NOTIFY_TO: optional; credentials/recipient are server-only and not in the content document.
+S3_ENDPOINT, S3_BUCKET, S3_REGION, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY: optional adapter configuration, private where applicable.
+LOG_LEVEL: bounded server logging configuration.
+NEXT_PUBLIC_SITE_ORIGIN: optional browser-safe duplicate only if genuinely needed; everything with NEXT_PUBLIC is public at build time.
+
+Generate example secrets as placeholders, not functioning default production credentials. Explain which values are evaluated at image build time versus runtime. Production site_url/canonical settings must agree with the validated PUBLIC_ORIGIN; a CMS edit must not change the CSRF trust boundary or an internal API destination.
+
+SEEDING
+Initialize one draft and one initial release only when the site is empty. Use stable deterministic UUIDs for the seed items. Re-running seed must preserve owner edits, revisions, releases, messages, uploaded files, and credentials. Bootstrap the owner separately. Optional résumé import follows the media validation path; a missing file is a clear optional asset notice, not an invented download.
+
+The initial live release contains verified CV facts, the two projects, the GK photo placeholder, and no fabricated screenshots. A fresh install can serve a complete public portfolio before the owner supplies an image or external SMTP credentials.
+
+======================================================================
+21. ACCESSIBILITY, MOTION, SEO, AND PERFORMANCE
+======================================================================
+
+ACCESSIBILITY TARGET
+Use WCAG 2.2 AA as the implementation and review target, without claiming formal conformance solely from an automated score. Provide semantic landmarks, one main h1 per page, correctly nested headings, visible focus, labels, error relationships, meaningful links, sufficient contrast, and usable touch targets.
+
+Verify at 320 px width, 200% zoom, and keyboard-only navigation. Dialogs and mobile menus have correct focus entry/exit and Escape behavior. The portrait crop has keyboard alternatives. Drag reordering has move-up/move-down buttons. A hidden section disappears from both navigation and the accessibility tree. Color and animation are never the only state indicators.
+
+Reduced-motion mode removes section translations, smooth scrolling, and unnecessary transition delays. Content remains visible with scripts blocked or motion initialization failing. Do not place meaningful text in canvas or bake all headings into images.
+
+SEO
+Provide server-rendered metadata, canonical URLs, Open Graph/Twitter metadata, favicon, and an owner-branded social fallback image. Use Person structured data only for supported facts and profile URLs. Do not invent ratings, awards, employers, job offers, or fake reviews in JSON-LD. Do not expose hidden phone numbers or private draft data through structured data.
+
+The sitemap contains /, the privacy route if appropriate, and current visible project canonical URLs. It excludes aliases, admin, drafts, preview, login, and hidden projects. Staging and preview deployments use noindex headers/meta; robots instructions are crawler guidance, not authorization. Protect draft routes even if a bot ignores robots.txt.
+
+PERFORMANCE TARGETS
+Aim for a fast usable first render on mobile. Treat these as measured targets rather than guaranteed claims: mobile LCP near or below 2.5 seconds, CLS below 0.1, and INP near or below 200 ms when real field measurement exists. Lighthouse is a laboratory diagnostic, not field INP evidence. Record test environment and remaining limitations.
+
+Keep the first-route JavaScript modest, avoid shipping admin/cropper dependencies to the public homepage, subset font weights, reserve image dimensions, and serve appropriately sized variants. Use bundle analysis if the public bundle is unexpectedly large. A large animation dependency for one decorative effect is not justified.
+
+No required third-party analytics, trackers, cookies banner, external embeds, or remote project screenshot service is necessary. If an external integration is later added, document what data it transmits and update the privacy behavior accurately.
+
+======================================================================
+22. VERIFICATION STRATEGY AND ACCEPTANCE SCENARIOS
+======================================================================
+
+Use pytest/HTTPX with actual PostgreSQL for database transactions and locking. Do not substitute SQLite for publication, JSONB, uniqueness, or rate-limit tests. Use Vitest/Testing Library for interactive frontend behavior and Playwright for real user journeys. Keep tests focused on observable outcomes and failure risks, not duplicated implementation details.
+
+CV-FACTS
+Fresh seed contains the exact owner, institution, degree dates, 9.24 current CGPA, 84%/2023 and 90.16%/2021 school results, WEB2ATTRACT Aug–Oct 2025, IEEE role dates, and correctly scoped event/student figures. Assert Vihaan finalist wording and relay first place. Assert no invented graduation year or professional AI role.
+
+PROJECTS-AND-ABSENCES
+Both actual projects render with their exact demo URLs and tools. Repository URLs, screenshots, and portrait remain absent until supplied. GK placeholder is intentional. A missing PDF produces no dead résumé link. Optional sections do not display empty headings or fake data.
+
+DRAFT-ISOLATION
+Save a unique draft-only string. It appears in authenticated preview but not anonymous HTML, JSON, metadata, sitemap, error payloads, or public media. Anonymous requests cannot read inbox, release source snapshots, or preview bytes. Public DTOs exclude source_content and hidden contact data.
+
+STALE-EDIT
+Two clients load revision N. The first saves N+1. The second receives 412 when saving with N; the first content remains intact. Missing If-Match returns 428. Stale publication preconditions return 409. The frontend provides a usable conflict state rather than overwriting data.
+
+ATOMIC-PUBLISH
+Hold a publication transaction and verify public readers see the complete prior release. After commit, they see the complete new release. Inject a failure before pointer update and assert rollback. Retry the same publish key and assert one release; reuse it with a different body and assert 409. A replay of an old successful publish never moves the live pointer backward.
+
+RESTORE-AND-SLUGS
+Restore an older private source snapshot into a new draft while leaving live unchanged. Verify hidden items survive that restoration. Rename a retained project's slug; old URL redirects to its current slug. Hide and publish the project; canonical and aliases return 404. Reject alias reuse by another UUID.
+
+SESSION-CSRF
+Verify token rotation, hash-only session storage, expiry, inactivity, logout, password change, and operator reset. Through HTTPS, assert Secure/HttpOnly/host-only/SameSite cookie behavior. Foreign Origin, missing CSRF, and unsafe returnTo values fail without mutation. No session token appears in localStorage, public props, logs, or bundles.
+
+MEDIA-VALIDATION-AND-CROP
+Test valid raster formats, MIME spoofing, oversized bytes, excessive decoded pixels, SVG/executable rejection, metadata stripping, invalid PDFs, and a real PDF download. Test normalized crop bounds and source-pixel aspect ratio, immutable new IDs, correct 4:5 variants, and parent-deletion protection.
+
+MEDIA-PUBLICATION-AND-DELETION
+A replacement in draft preserves the old public image and keeps the replacement private. Publishing switches access according to current live references. An asset still used elsewhere remains public; an asset with no current public reference returns 404 on GET and HEAD, including optimizer/proxy bypass attempts. Race deletion against draft attachment and assert no dangling reference. Test logical deletion with storage deletion failure.
+
+CONTACT-RETRY
+Commit a message, simulate loss of its HTTP response, and retry the same key/body. Assert one stored message and the same receipt. Concurrent identical requests behave the same. A changed body with the same key returns 409. Database failure does not show success. SMTP failure does not lose the message. Deletion during the retained receipt window does not recreate the content on retry.
+
+RATE-LIMIT-CONCURRENCY
+Send competing requests near bucket boundaries through more than one API worker. Assert transactional ceilings and correct Retry-After. Valid completed retries do not consume new-message quotas. Verify untrusted forwarded IP headers do not bypass limits.
+
+SEED-MIGRATION-PERSISTENCE
+Migrate an empty database, seed twice, edit content, then seed again. Owner edits and release history remain unchanged. Restart containers and verify data/media persist. Test a supported migration against existing content and contacts. Verify incompatible content schema versions fail clearly rather than corrupting data.
+
+RESPONSIVE-ACCESSIBLE
+Inspect home, both project pages, admin forms, inbox, mobile menu, and error states at 360, 768, and 1440 px, plus a 320 px overflow check. Use keyboard navigation, 200% zoom, reduced motion, and automated accessibility checks. Capture actual rendered screenshots for engineering review. Verify field errors and dialog focus behavior manually where automation cannot establish quality.
+
+PROXY-HEALTH-RESTORE
+Run through the production-like nginx origin, including an ephemeral HTTPS test setup. Direct navigation to a project route works. Stop PostgreSQL: liveness remains healthy, readiness becomes 503, and dependent operations fail honestly. Restore a populated backup into empty volumes and compare release/draft records, inbox IDs, and media hashes. Restored sessions are invalidated.
+
+BROWSER TEST QUALITY
+Use accessible locators, deterministic fixtures, isolated data, explicit readiness/response conditions, and bounded timeouts. Do not rely on arbitrary sleeps, live external demo availability, exact animation timing, or mocked successful backend mutations in acceptance journeys. Capture traces/screenshots on failure. Do not hide defects with unlimited retries or blanket snapshot updates.
+
+CI GATES
+Frontend lint, TypeScript, meaningful component tests, production build; backend lint/types, unit tests, PostgreSQL integration/migration tests; generated API contract drift check; integrated browser journeys. Audit dependency findings sensibly and record material unresolved issues. A skipped check is not a passed check.
+
+======================================================================
+23. DEPLOYMENT, MONITORING, BACKUPS, AND OPERATIONAL OWNERSHIP
+======================================================================
+
+REFERENCE TOPOLOGY
+Use one host or equivalent services running nginx, Next.js, FastAPI, and PostgreSQL. Only the proxy exposes public application ports. PostgreSQL and API stay on the private service network. Use a named PostgreSQL volume and a separate persistent media volume, or the explicitly implemented private object-storage adapter. Do not deploy uploaded files onto an ephemeral filesystem.
+
+Build production images with pinned dependencies and unprivileged app processes. Configure request sizes, timeouts, trusted proxies, graceful shutdown, and TLS. Startup order is database readiness, one explicit migration step, then application services. Do not let every API worker run migrations independently on boot.
+
+Health liveness reports process responsiveness without requiring PostgreSQL. Readiness checks database access, expected migration/schema compatibility, and required media storage. SMTP failure does not make the public site unready. Health responses do not disclose secrets, local paths, or stack traces.
+
+Use structured request/error logs with correlation IDs and bounded safe context. Exclude credentials, cookies, CSRF values, contact message bodies, uploaded document content, and unnecessary personal data. Make it possible to identify failed publishes, failed media processing, repeated contact failures, and readiness loss. Avoid adding a large observability platform solely for this portfolio.
+
+DATABASE AND MEDIA BACKUP
+Provide executable scripts that stop application writers or enter a controlled maintenance mode, take a PostgreSQL custom-format dump, archive the corresponding private media, and record application/migration versions plus media hashes. A database-only backup is incomplete. Protect backups because they contain drafts, contact details, and unpublished assets. Keep secrets outside the archive and document backup retention, for example seven daily and four weekly copies when the operator configures that schedule.
+
+RESTORE REHEARSAL
+Restore into explicitly chosen empty disposable volumes. Restore the matching database/media pair, apply only compatible migrations, invalidate all restored admin sessions, verify asset hashes, and run the recovery checks from section 22. Record one executed rehearsal and its results. Never test restore by overwriting an existing production database without authorization.
+
+RELEASE PROCESS
+1. Run required verification and build immutable images.
+2. Record the current application version and create a recoverable backup.
+3. Apply a reviewed migration once with an explicit failure path.
+4. Start the new services and verify readiness, public rendering, login, and contact persistence.
+5. Inspect logs and complete a concise post-release smoke check.
+6. If rollback is needed, assess schema compatibility before restarting an old application image. Do not run a destructive migration downgrade blindly.
+
+These are deployment instructions and review gates. The coding task does not itself authorize publishing to the internet or purchasing hosting. Document the actual deployment variables, domain/TLS requirements, and remaining external credentials without treating their absence as a reason to leave the local application unfinished.
+
+======================================================================
+24. MILESTONES AND IMPLEMENTATION SEQUENCE
+======================================================================
+
+MILESTONE 1 — FOUNDATION AND CONTRACTS
+Inspect the repository. Establish pinned toolchain, workspace, configuration, Compose, schemas, migrations, and actual seed fixture. Export OpenAPI and generate frontend types. Demonstrate empty-database initialization and idempotent seed. Record the architecture decisions briefly.
+
+MILESTONE 2 — PUBLISHED PUBLIC EXPERIENCE
+Implement aggregate public API and both project routes, then build the actual editorial layout from that data. Complete portrait/project placeholders, responsive sections, real links, route metadata, and a designed 404. Check the design in a browser before adding more backend features.
+
+MILESTONE 3 — OWNER EDITING AND PUBLISHING
+Implement bootstrap/login/session/CSRF, the protected admin shell, all content forms, revision-controlled saves, draft preview projection, publication, history, restore, and slug aliases. Demonstrate one edit remaining private until publication and a stale edit being rejected.
+
+MILESTONE 4 — MEDIA AND RÉSUMÉ
+Implement validated private uploads, immutable variants, portrait crop, alt text, galleries, résumé import/replacement, live-reference authorization, usage protection, and cleanup. Demonstrate real image/PDF bytes persisting across restart. Verify placeholder behavior without assets.
+
+MILESTONE 5 — CONTACT AND OWNER INBOX
+Implement database contact persistence, idempotent retry, transactional rate limits, validation, inbox states, deletion/retention, and optional notification status. Demonstrate a response-loss retry producing one message. The milestone works without SMTP.
+
+MILESTONE 6 — QUALITY AND OPERATIONS
+Complete visual refinement, accessibility, reduced motion, SEO, production proxy/TLS configuration, CI, meaningful browser checks, backup/restore rehearsal, and the owner guide. Run the full acceptance sequence and resolve blocking defects.
+
+At each milestone, integrate through the real database/API path. Temporary fixtures may accelerate an isolated component, but remove them from production flows before declaring the milestone complete. Give concise updates stating working behavior and remaining issues. Do not repeatedly ask the owner to approve routine technical decisions already specified here.
+
+======================================================================
+25. COMPLETION CHECKLIST AND FINAL ENGINEERING HANDOFF
+======================================================================
+
+The application is complete only when all applicable requirements below are demonstrated:
+
+[ ] Correct Gagandeep Kaur identity and CV-based content, with no mixed-owner facts.
+[ ] Distinctive portrait-led editorial design at phone, tablet, and desktop sizes.
+[ ] Intentional GK photo fallback and working upload/crop/replacement flow.
+[ ] Two truthful project detail pages with exact supplied demo links.
+[ ] Real résumé download when a validated PDF is supplied; honest absence otherwise.
+[ ] PostgreSQL-backed published content rather than hard-coded production mock data.
+[ ] Secure one-owner login, expiry, logout, reset, and CSRF protection.
+[ ] Complete content editing, ordering, visibility, draft saving, and preview.
+[ ] Optimistic-concurrency conflict handling with no silent lost edits.
+[ ] Atomic publication, idempotent publish retry, and restorable private history.
+[ ] Correct project aliases and withdrawn-project behavior.
+[ ] Verified private media, correct public-reference access, and protected deletion.
+[ ] Persistent contact inbox, reliable receipt semantics, retry deduplication, and rate limits.
+[ ] Honest optional SMTP behavior and documented retention/cleanup.
+[ ] No secrets in browser code, committed files, logs, or public responses.
+[ ] Accessible navigation/forms/dialogs/crop controls and reduced-motion behavior.
+[ ] Functional loading, empty, failure, conflict, 404, and dependency-outage states.
+[ ] Current public metadata/sitemap, protected previews, and staging noindex.
+[ ] Reproducible migrations, idempotent seed, locked installs, and documented commands.
+[ ] Data and media survive container restarts.
+[ ] Meaningful real-stack tests and accurate verification report.
+[ ] Coordinated backup/restore demonstrated in an isolated target.
+[ ] Clear owner editing/media/publication instructions.
+[ ] Deployment requirements and remaining external inputs stated precisely.
+
+FINAL RESPONSE FROM CODEX
+Report the implemented experience and architecture, the important files/modules, exact setup/run/admin-bootstrap commands, commands actually tested and their outcomes, screenshots or preview evidence where supported, and remaining limitations. Clearly distinguish an unavailable external credential/asset from a required feature that was not implemented. Never claim a test ran if it did not, email was delivered if only stored, or deployment happened if only configuration was prepared.
+
+Explain how the owner changes the portrait, uploads the résumé, edits projects, publishes a draft, and reads contact messages. List the initial missing optional inputs: real portrait, project screenshots, and project-specific repository links. No follow-up input is required to build the specified placeholder-ready local application.
+
+======================================================================
+26. REFERENCE DOCUMENTATION AND CONTENT PROVENANCE
+======================================================================
+
+PERSONAL CONTENT SOURCE
+Gagandeep_kaur_resume.pdf, supplied by the user. Exact CV facts and extracted URLs are recorded in sections 02 and 03. This document preserves the supplied time ranges; it does not independently certify that an open-ended role remains current. No photograph was present in the PDF.
+
+DESIGN PROVENANCE
+The journal concept, palette, layout, type pairing, component behavior, and editing workflows are project requirements proposed for this portfolio. They are not claims about a prior website or about the owner's personal preferences beyond the request for a creative, modern, sleek portfolio with a photo section.
+
+TECHNICAL REFERENCES
+Use official documentation for the versions actually installed. These references support architecture and implementation details; the precise limits and product behavior in this specification are deliberate project decisions.
+
+Next.js App Router / server and client components:
+https://nextjs.org/docs/app/getting-started/server-and-client-components
+FastAPI deployment concepts:
+https://fastapi.tiangolo.com/deployment/concepts/
+PostgreSQL explicit locking and transaction coordination:
+https://www.postgresql.org/docs/current/explicit-locking.html
+OWASP file upload guidance:
+https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html
+OWASP session management guidance:
+https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
+OWASP CSRF prevention guidance:
+https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+WCAG 2.2:
+https://www.w3.org/TR/WCAG22/
+Web Vitals definitions:
+https://web.dev/articles/vitals
+
+Do not copy a documentation example's authentication scheme blindly if it conflicts with the explicit opaque-cookie session design here. Verify framework behavior, package compatibility, and security settings against current primary documentation during implementation. Record chosen versions and any justified deviation in docs/architecture.md.
+
+END OF COMPLETE BUILD SPECIFICATION

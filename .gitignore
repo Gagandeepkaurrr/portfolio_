@@ -1,0 +1,22 @@
+node_modules/
+.next*/
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.data/
+backups/
+playwright-report/
+test-results/
+.superpowers/
+*.tsbuildinfo
+.DS_Store
+
+# Next regenerates these for the chosen build directory.
+apps/web/next-env.d.ts
