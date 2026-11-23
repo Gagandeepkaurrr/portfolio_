@@ -25,7 +25,7 @@ Choose **New → Web Service**, connect the GitHub repository, and configure:
 | Setting | Value |
 | --- | --- |
 | Runtime | Python 3 |
-| Root directory | `apps/api` |
+| Root directory | `backend` |
 | Python version environment variable | `PYTHON_VERSION=3.12.16` |
 | uv version environment variable | `UV_VERSION=0.13.6` |
 | Build command | `uv sync --frozen --no-dev` |
@@ -71,21 +71,21 @@ Startup initializes one verified draft and release only when empty. The first co
 
 ## 4. Import the frontend into Vercel
 
-The repository includes `apps/web/vercel.json` with the React Router framework and workspace install/build commands. Once the real Render API hostname is known, configure its external API rewrite from the repository root:
+The repository includes `frontend/vercel.json` with the React Router framework and workspace install/build commands. Once the real Render API hostname is known, configure its external API rewrite from the repository root:
 
 ```sh
-node apps/web/scripts/configure-vercel.mjs https://YOUR-API.onrender.com
+node frontend/scripts/configure-vercel.mjs https://YOUR-API.onrender.com
 ```
 
-Replace the example argument with the actual HTTPS API origin, then commit the resulting `apps/web/vercel.json`. The API hostname is public and contains no credential. The helper configures `/api/v1/:path*` forwarding so API requests, including uploads, bypass the frontend function. The base configuration can use the standalone proxy through `API_INTERNAL_URL`, but the external rewrite is required before launching the media upload workflow because Vercel Functions have payload limits. A real API hostname is still a deployment prerequisite. [Vercel external rewrites](https://vercel.com/docs/routing/rewrites)
+Replace the example argument with the actual HTTPS API origin, then commit the resulting `frontend/vercel.json`. The API hostname is public and contains no credential. The helper configures `/api/v1/:path*` forwarding so API requests, including uploads, bypass the frontend function. The base configuration can use the standalone proxy through `API_INTERNAL_URL`, but the external rewrite is required before launching the media upload workflow because Vercel Functions have payload limits. A real API hostname is still a deployment prerequisite. [Vercel external rewrites](https://vercel.com/docs/routing/rewrites)
 
-In Vercel, create a project from the same GitHub repository. Set **Root Directory** to `apps/web`, select the **React Router** framework preset, and enable inclusion of source files outside that directory so the workspace lockfile can be used. The committed `react-router.config.ts` enables `@vercel/react-router` when Vercel supplies `VERCEL=1`; ordinary local builds retain the Node server output. Keep server rendering enabled. [React Router on Vercel](https://vercel.com/docs/frameworks/frontend/react-router), [Vercel monorepo guide](https://vercel.com/docs/monorepos)
+In Vercel, create a project from the same GitHub repository. Set **Root Directory** to `frontend`, select the **React Router** framework preset, and enable inclusion of source files outside that directory so the workspace lockfile can be used. The committed `react-router.config.ts` enables `@vercel/react-router` when Vercel supplies `VERCEL=1`; ordinary local builds retain the Node server output. Keep server rendering enabled. [React Router on Vercel](https://vercel.com/docs/frameworks/frontend/react-router), [Vercel monorepo guide](https://vercel.com/docs/monorepos)
 
 | Setting | Value |
 | --- | --- |
 | Node version | `26.x` |
-| Install command | `cd ../.. && npx --yes pnpm@12.18.0 install --frozen-lockfile` |
-| Build command | `cd ../.. && npx --yes pnpm@12.18.0 --filter @portfolio/web build` |
+| Install command | `cd .. && npx --yes pnpm@12.18.0 install --frozen-lockfile` |
+| Build command | `cd .. && npx --yes pnpm@12.18.0 --filter @portfolio/web build` |
 | Output directory | Leave the React Router framework default; remove any old override |
 
 Select Node 26.x in project settings; this matches the locally verified Node 26 toolchain. [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions)

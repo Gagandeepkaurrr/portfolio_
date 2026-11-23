@@ -14,7 +14,7 @@ Executed on the migration:
 - Production dependency audit: zero advisories after replacing the Vercel adapter's vulnerable transitive AJV version with 8.20.0.
 - Independent review found no actionable migration defect; see [React migration review](reports/react-review.md). Production screenshots were refreshed and visually inspected.
 
-Deployment source now includes `apps/web/vercel.json`, a tested helper for the actual Render API rewrite, and a schema-validated `render.yaml` with automatic PostgreSQL wiring and persistent private media. Generic provider PostgreSQL URLs normalize to the pinned psycopg driver; a regression checks credentials/query preservation. No data/schema migration is required.
+Deployment source now includes `frontend/vercel.json`, a tested helper for the actual Render API rewrite, and a schema-validated `render.yaml` with automatic PostgreSQL wiring and persistent private media. Generic provider PostgreSQL URLs normalize to the pinned psycopg driver; a regression checks credentials/query preservation. No data/schema migration is required.
 
 The actual Render API URL and final Vercel origin remain operator configuration. The base Vercel file contains no invented hostname; run the documented configuration helper with the real API origin before launching uploads. No public deployment or paid service creation occurred. HTTPS cookie, large-upload, source-IP and remote recovery checks remain in the [hosting guide](vercel-render.md).
 

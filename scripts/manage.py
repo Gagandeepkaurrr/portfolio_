@@ -31,14 +31,14 @@ def run(args, cwd=ROOT, env=None):
     subprocess.run(args, cwd=cwd, env=env or environment(), check=True)
 
 def api(*args):
-    run(['uv', 'run', '--frozen', *args], ROOT / 'apps/api')
+    run(['uv', 'run', '--frozen', *args], ROOT / 'backend')
 
 def dev():
     run(['docker', 'compose', 'up', '-d', '--wait', 'db'])
     api('alembic', 'upgrade', 'head')
     api('python', '-m', 'app.cli', 'seed')
     env = environment()
-    entries = [(['uv', 'run', '--frozen', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', env.get('API_DEV_PORT','8100'), '--reload'], ROOT / 'apps/api'),
+    entries = [(['uv', 'run', '--frozen', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', env.get('API_DEV_PORT','8100'), '--reload'], ROOT / 'backend'),
                ([*PNPM, '--filter', '@portfolio/web', 'dev'], ROOT)]
     processes = []
     def stop_requested(*_):
@@ -80,7 +80,7 @@ def main():
     command = args.command
     if command == 'install':
         run([*PNPM, 'install', '--frozen-lockfile'])
-        run(['uv', 'sync', '--frozen', '--project', 'apps/api'])
+        run(['uv', 'sync', '--frozen', '--project', 'backend'])
     elif command == 'dev':
         dev()
     elif command == 'migrate':

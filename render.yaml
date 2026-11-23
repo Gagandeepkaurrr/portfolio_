@@ -15,7 +15,7 @@ services:
   - type: web
     name: gagandeep-portfolio-api
     runtime: python
-    rootDir: apps/api
+    rootDir: backend
     region: singapore
     plan: 0.5c-512mb
     numInstances: 1

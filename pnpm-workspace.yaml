@@ -1,5 +1,5 @@
 packages:
-  - apps/web
+  - frontend
 minimumReleaseAgeExclude:
   - vite@8.3.8
 allowBuilds:

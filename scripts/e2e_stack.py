@@ -89,7 +89,7 @@ def main():
                 'CONTACT_NOTIFY_TO':'',
             })
             def api(*parts):
-                subprocess.run(['uv','run','--frozen',*parts],cwd=ROOT/'apps/api',env=env,check=True)
+                subprocess.run(['uv','run','--frozen',*parts],cwd=ROOT/'backend',env=env,check=True)
             api('alembic','upgrade','head')
             api('python','-m','app.cli','seed')
             api('python','-c',"import os; from app.cli import create_owner; from app.db import session_factory; db=session_factory()(); create_owner(db,os.environ['E2E_OWNER_EMAIL'],os.environ['E2E_OWNER_PASSWORD']); db.close()")
@@ -99,7 +99,7 @@ def main():
                 env.update({'PORT':str(web_port),'HOST':'127.0.0.1'})
             web_command = [*PNPM,'--filter','@portfolio/web','start'] if production_web else [*PNPM,'--filter','@portfolio/web','exec','react-router','dev','--host','127.0.0.1','--port',str(web_port)]
             commands = [
-                (['uv','run','--frozen','uvicorn','app.main:app','--host','127.0.0.1','--port',str(api_port)],ROOT/'apps/api','api.log'),
+                (['uv','run','--frozen','uvicorn','app.main:app','--host','127.0.0.1','--port',str(api_port)],ROOT/'backend','api.log'),
                 (web_command,ROOT,'web.log'),
             ]
             for command, cwd, filename in commands:

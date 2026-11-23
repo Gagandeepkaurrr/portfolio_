@@ -4,13 +4,13 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import openapiTS,{astToString} from 'openapi-typescript';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..');
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const temp=mkdtempSync(path.join(tmpdir(),'portfolio-contract-'));
-const openapi=path.join(root,'apps/api/openapi.json');
-const target=path.join(root,'apps/web/src/lib/generated/api.ts');
+const openapi=path.join(root,'backend/openapi.json');
+const target=path.join(root,'frontend/src/lib/generated/api.ts');
 try{
  const fresh=path.join(temp,'openapi.json');
- execFileSync('uv',['run','--frozen','python','-m','app.cli','export-openapi',fresh],{cwd:path.join(root,'apps/api'),stdio:'pipe'});
+ execFileSync('uv',['run','--frozen','python','-m','app.cli','export-openapi',fresh],{cwd:path.join(root,'backend'),stdio:'pipe'});
  const schema=readFileSync(fresh,'utf8');
  const code='// Generated from FastAPI OpenAPI. Run pnpm contracts; do not edit.\n'+astToString(await openapiTS(JSON.parse(schema)));
  if(process.argv.includes('--check')){

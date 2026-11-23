@@ -43,10 +43,10 @@ jobs:
         run: make verify
       - name: Verify React Router server and client output
         run: |
-          test -f apps/web/build/server/index.js
-          test -d apps/web/build/client/assets
+          test -f frontend/build/server/index.js
+          test -d frontend/build/client/assets
       - name: Build the production web container
-        run: docker build --file apps/web/Dockerfile --tag portfolio-web:ci .
+        run: docker build --file frontend/Dockerfile --tag portfolio-web:ci .
       - name: Verify operational archive handling
         run: python3 -m unittest discover -s tests/ops -v
       - name: Install browser

@@ -8,7 +8,7 @@ from dotenv import dotenv_values
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import make_url
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[2]
 source = os.environ.get('DATABASE_URL') or dotenv_values(ROOT / '.env').get('DATABASE_URL')
 if not source:
     raise RuntimeError('Provide DATABASE_URL or TEST_DATABASE_URL for real PostgreSQL tests')
@@ -32,7 +32,7 @@ from app.cli import create_owner, seed_site
 from app.main import app
 from fastapi.testclient import TestClient
 
-command.upgrade(Config(str(ROOT / 'apps/api/alembic.ini')), 'head')
+command.upgrade(Config(str(ROOT / 'backend/alembic.ini')), 'head')
 
 
 @pytest.fixture(autouse=True)

@@ -12,8 +12,8 @@
     "lint": "pnpm --filter @portfolio/web lint",
     "test": "pnpm --filter @portfolio/web test",
     "e2e": "playwright test",
-    "contracts": "node apps/web/scripts/contracts.mjs",
-    "contracts:check": "node apps/web/scripts/contracts.mjs --check"
+    "contracts": "node frontend/scripts/contracts.mjs",
+    "contracts:check": "node frontend/scripts/contracts.mjs --check"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.11.1",

@@ -144,7 +144,7 @@ for (const width of [320, 360, 768, 1440])
       expect(a11y.violations).toEqual([]);
     }
     await page.screenshot({
-      path: `docs/screenshots/home-${width}.png`,
+      path: `test-results/screenshots/home-${width}.png`,
       fullPage: true,
     });
   });

@@ -124,9 +124,9 @@ test('owner uploads and crops a portrait draft; admin fits mobile and has access
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Open studio navigation', exact: true })).toBeFocused();
-  await page.screenshot({ path: 'docs/screenshots/admin-profile-320.png', fullPage: true });
+  await page.screenshot({ path: 'test-results/screenshots/admin-profile-320.png', fullPage: true });
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.screenshot({ path: 'docs/screenshots/admin-profile-1440.png', fullPage: true });
+  await page.screenshot({ path: 'test-results/screenshots/admin-profile-1440.png', fullPage: true });
   await page.getByRole('button', { name: 'Remove from draft', exact: true }).click();
   await saveDraft(page);
 });

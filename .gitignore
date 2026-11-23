@@ -22,4 +22,7 @@ test-results/
 .DS_Store
 
 # Ignore generated files from earlier local builds during migration.
-apps/web/next-env.d.ts
+frontend/next-env.d.ts
+
+# Generated browser captures
+docs/screenshots/
