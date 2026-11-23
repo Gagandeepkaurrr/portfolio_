@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import type { ReactNode } from "react";
 import type { PublicSiteContent } from "@/lib/types";
+import "@/styles/public.css";
 import { SiteHeader } from "./header";
 import { Arrow } from "./icons";
 export function ExternalLink({
@@ -32,7 +33,7 @@ export function PublicShell({
   children: ReactNode;
 }) {
   return (
-    <>
+    <div className="portfolio-site">
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -72,6 +73,6 @@ export function PublicShell({
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

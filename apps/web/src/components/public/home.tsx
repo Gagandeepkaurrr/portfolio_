@@ -78,8 +78,8 @@ export function PortfolioHome({ content }: { content: PublicSiteContent }) {
     : content.projects;
   return (
     <main id="main">
+      <div className="hero-stage">
       <section className="hero container" id="top" aria-labelledby="hero-title">
-        <PortraitFrame media={p.portrait} />
         <div className="hero-copy">
           <div className="eyebrow hero-eyebrow">
             <span className="tiny-star">✳</span>
@@ -116,7 +116,9 @@ export function PortfolioHome({ content }: { content: PublicSiteContent }) {
             <p>{s.availability_text}</p>
           )}
         </div>
+        <PortraitFrame media={p.portrait} />
       </section>
+      </div>
       <div className="container journal-divider">
         <span>THOUGHTFUL INTERFACES. MEANINGFUL CONNECTIONS.</span>
         <span>SCROLL TO EXPLORE ↓</span>
