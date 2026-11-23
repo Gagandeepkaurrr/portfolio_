@@ -80,7 +80,8 @@ def main():
     command = args.command
     if command == 'install':
         run([*PNPM, 'install', '--frozen-lockfile'])
-        run(['uv', 'sync', '--frozen', '--project', 'backend'])
+        # Recreate entry-point shebangs if the checkout was moved.
+        run(['uv', 'sync', '--frozen', '--reinstall', '--project', 'backend'])
     elif command == 'dev':
         dev()
     elif command == 'migrate':

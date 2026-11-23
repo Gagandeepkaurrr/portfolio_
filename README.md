@@ -6,7 +6,7 @@ A responsive editorial portfolio and private owner publishing application, built
 
 Requires Docker Desktop/Engine with Compose, Node **26.13.0** (or supported Node 24 LTS), Python **3.12**, `uv` **0.13.6**, and `make`. On Apple Silicon, use native arm64 Docker images and install Node/uv with your preferred package manager. On Linux, install Docker Engine with the Compose plugin. `npx` runs the pinned pnpm **12.18.0**; no global pnpm install is needed.
 
-Run these commands from the repository root:
+Run these commands from the repository root (on this machine: `/Users/gaggu/github/portfolio`):
 
 ```sh
 make configure
@@ -76,3 +76,7 @@ The frontend's `build` script runs `react-router build`, producing `frontend/bui
 See [architecture](docs/architecture.md), [API conventions](docs/api.md), [backup and recovery](docs/backup-restore.md), [content provenance](docs/content-provenance.md), and the final [verification record](docs/verification.md). Reports distinguish executed checks from remaining deployment work. Missing optional inputs are a real portrait, project screenshots and project-specific repository links. No SMTP credentials are required to receive and store contact messages.
 
 Repository cleanup: see [removed files](docs/removed-files.md) for the complete deletion list.
+
+### After moving the project folder
+
+Run `make install` again to rebuild Python executable paths. If startup reports `Failed to spawn: alembic`, run `uv sync --frozen --reinstall --project backend`. Keep `scripts/manage.py` intact: its `api()` helper is required by all backend commands.
